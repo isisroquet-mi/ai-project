@@ -1,29 +1,44 @@
 # Fricciones de ejecución y desempeño de la inversión pública local
 
-**Isis Milagros Roque Tinta · Modelamiento Económico · Vía B (modelo de tesis)**
+**Autora:** Isis Milagros Roque Tinta · **Vía B:** modelo económico de tesis.
 
-## Pregunta
+## Pregunta y modelo
 
-¿Cómo pueden las fricciones asociadas al contexto distrital afectar la velocidad de ejecución y la variación de costos de proyectos de inversión pública local del Perú? La tesis empírica de Christopher Antony Bolo Añorga e Isis Milagros Roque Tinta estudia la relación entre pobreza distrital y esas dos dimensiones, considerando proyecto, territorio, recursos fiscales y capacidad municipal. El modelo es una interpretación teórica condicional; no identifica causalidad.
+¿Cómo afectan las fricciones de implementación a la intensidad elegida por un gobierno local y cuándo se traducen en mayor duración y sobrecosto? Se considera un proyecto que se ejecutará, de alcance y calidad fijos. El municipio elige intensidad constante e > 0 para minimizar K(e;κ) = M + F/e + κe/2. La duración es T = 1/e.
 
-## Modelo
+## Resultado principal con condiciones
 
-La municipalidad elige la intensidad constante de un proyecto unitario, $e>0$, y la duración es $T=1/e$. Con costo directo $M\geq0$, costo por periodo $F>0$ y fricción de aceleración $\kappa>0$, resuelve
+Con M ≥ 0, F > 0 y κ > 0, el óptimo interior único es e* = √(2F/κ), T* = √(κ/(2F)) y K* = M + √(2Fκ). Bajo la hipótesis estructural κp > 0 y manteniendo capacidad, M y F fijos, más pobreza reduce intensidad y aumenta duración y costo. No es un resultado empírico identificado.
 
-$$\min_{e>0}\;K(e;\kappa)=M+F/e+\kappa e/2.$$
+Con igual alcance, calidad, M y F en viabilidad y ejecución, R = log(KA/KV) es positivo si y sólo si κA > κV. La extensión κV = λκA + (1−λ)κ̄, λ ∈ [0,1], κ̄ > 0, distingue dificultad realizada y anticipación. Mejor anticipación acerca R a cero sin alterar la ejecución cuando κA está fija. λ es exógeno.
 
-El benchmark supone $\kappa=\bar\kappa$; la extensión permite $\kappa=\kappa(p,C)$, donde $p$ es pobreza predeterminada y $C$ capacidad municipal.
-
-## Resultado propuesto y condiciones
-
-Si $F>0$, $\kappa(p,C)>0$, $\kappa_p>0$ y $\kappa_C<0$, el óptimo único es $e^*=\sqrt{2F/\kappa}$; la duración es $T^*=\sqrt{\kappa/(2F)}$ y el costo actualizado teórico es $K^A=M+\sqrt{2F\kappa}$. Mayor $p$ reduce $e^*$ y aumenta $T^*$ y $K^A$ sólo bajo el supuesto $\kappa_p>0$. Manteniendo fijo el monto previsto $K^V=M+\sqrt{2F\kappa^V}$, el indicador $R=\log(K^A/K^V)$ es positivo exactamente cuando $\kappa>\kappa^V$. La correspondencia con el avance financiero anual y el costo registrado por el MEF requiere supuestos de medición.
-
-## Estado al 14 de octubre de 2026
+## Estado del proyecto
 
 | Componente | Estado |
-|---|---|
-| [Documento del tema](proposal/proposal.pdf) y [diapositivas](slides/topic.pdf) | Preparados para la presentación de 20 minutos del 14/10 |
-| Presentación final | Pendiente para noviembre; archivos de ejemplo de la plantilla aún sin adaptar |
-| Artículo final, simulaciones, Lean y apéndice manuscrito | Pendientes; los ejemplos de la plantilla no son resultados de este proyecto |
+| --- | --- |
+| Propuesta y diapositivas del tema | PDFs y fuentes LaTeX revisados |
+| Resultados analíticos | Caracterización preliminar y comparativas derivadas |
+| Figuras y verificaciones numéricas | Reproducidas por `code/verify.py` |
+| Revisión de literatura | Diez PDF comparados; siete antecedentes centrales; seguimiento de contratos pendiente |
+| Prueba manuscrita y verificación simbólica | Pendientes |
+| Lean, paper final y diapositivas finales | Pendientes |
+| Actualización de la entrega | Archivos actualizados mediante rama y pull request |
 
-Las fuentes LaTeX están junto a los PDF. Las interacciones relevantes con IA figuran en [prompts.md](prompts.md).
+## Reproducir
+
+Desde la raíz del repositorio:
+
+```bash
+python -m pip install -r code/requirements.txt
+python code/verify.py
+cd proposal
+pdflatex -interaction=nonstopmode -halt-on-error proposal.tex
+pdflatex -interaction=nonstopmode -halt-on-error proposal.tex
+cd ../slides
+pdflatex -interaction=nonstopmode -halt-on-error topic.tex
+pdflatex -interaction=nonstopmode -halt-on-error topic.tex
+```
+
+Se incluyen las figuras PDF para compilar las diapositivas incluso antes de reproducirlas. Las fuentes requieren una distribución LaTeX con Beamer, Latin Modern, Babel, microtype y titlesec.
+
+**Archivos de la plantilla:** `paper/`, `slides/final.*`, `lean/` y `hand/` conservan ejemplos o instrucciones para el trabajo final. No representan resultados concluidos de este proyecto.

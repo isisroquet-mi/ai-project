@@ -1,60 +1,145 @@
-% Vía B, presentación del tema. Compilar desde proposal/.
-\documentclass[11pt]{article}
-\usepackage[utf8]{inputenc}
+\documentclass[11pt,a4paper]{article}
 \usepackage[T1]{fontenc}
-\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{babel}
+\babelprovide[main,import]{spanish}
+\usepackage{lmodern,amsmath,amssymb,booktabs,enumitem,microtype}
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{xcolor}
+\usepackage{xcolor,hyperref}
+\definecolor{navy}{HTML}{17324D}
+\hypersetup{colorlinks=true,urlcolor=navy,linkcolor=navy,citecolor=navy}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist{nosep,leftmargin=*,topsep=3pt}
 \usepackage{titlesec}
-\usepackage[colorlinks=true,allcolors=blue!55!black]{hyperref}
-\definecolor{azul}{HTML}{123B65}
-\titlespacing*{\section}{0pt}{1.3ex}{0.45ex}
+\titleformat{\section}{\large\bfseries\color{navy}}{\thesection.}{.5em}{}
+\titlespacing*{\section}{0pt}{9pt}{4pt}
+\newcommand{\repo}{\url{https://github.com/isisroquet-mi/ai-project}}
 \begin{document}
 \begin{center}
-{\large\color{azul}\bfseries Fricciones de ejecución y desempeño de la inversión pública local}\\[0.3em]
-Isis Milagros Roque Tinta · Vía B: modelo económico de tesis\\[-0.1em]
-{\small Presentación del tema · 14 de octubre de 2026 · \url{https://github.com/isisroquet-mi/ai-project}}
+{\Large\bfseries\color{navy} Fricciones de ejecución y desempeño\\de la inversión pública local}\par
+\vspace{3pt}
+Isis Milagros Roque Tinta\quad$\cdot$\quad Vía B: modelo económico de tesis\\
+Universidad del Pacífico\quad$\cdot$\quad Modelamiento Económico\\
+Presentación del tema: 14 de octubre de 2026\\[-2pt]
+{\small\repo}
 \end{center}
-\vspace{-0.7em}
 \section{Pregunta y vía}
-La tesis de Bolo Añorga y Roque Tinta (2026), \emph{Pobreza y desempeño en la inversión pública en el Perú}, pregunta cómo se relaciona la pobreza distrital con la velocidad de ejecución y la variación de costos de proyectos de gobiernos locales. Su análisis empírico mide la velocidad mediante avance financiero acumulado por año transcurrido desde el primer devengado y la variación de costos mediante el logaritmo del cociente entre costo actualizado y monto viable. La hipótesis es asociativa y contempla características del proyecto, territorio, recursos fiscales y capacidad municipal. Este proyecto elige la \textbf{Vía B}: formular un mecanismo teórico estilizado que dé una interpretación económica a ambas dimensiones, sin sustituir la estrategia empírica ni atribuir causalidad directa a la pobreza.
+La tesis de Bolo Añorga y Roque Tinta (2026) estudia cómo se relaciona la pobreza distrital con la velocidad de ejecución y la variación de costos de proyectos de inversión pública local en el Perú. Su estrategia empírica considera características del proyecto, condiciones territoriales, recursos fiscales y capacidad municipal. Este proyecto sigue la \textbf{Vía B}: construir un modelo teórico estilizado que sustente un mecanismo económico de esa relación.
+
+La pregunta teórica es: \textbf{¿cómo afectan las fricciones de implementación a la intensidad elegida por un gobierno local y cuándo se traducen en mayor duración y sobrecosto?} La distinción central es que una fricción alta puede elevar el costo de ejecutar, mientras que un sobrecosto requiere una diferencia respecto de lo anticipado. Las predicciones son condicionales al mecanismo propuesto y no identifican causalmente el efecto empírico de la pobreza.
 
 \section{Línea base y supuesto que se modifica}
-Se toma un proyecto de tamaño normalizado a una unidad y un gobierno local que, después de conocer las condiciones de ejecución, escoge una intensidad constante $e>0$ (avance físico equivalente por unidad de tiempo). Su duración es $T(e)=1/e$. El costo directo inevitable es $M\geq0$; mientras la obra siga abierta se paga $F>0$ por unidad de tiempo; y acelerar requiere coordinación, supervisión y recursos cuyo costo \emph{por unidad de tiempo} es $\kappa e^2/2$, con $\kappa>0$. El costo total que minimiza el municipio es
-\begin{equation}\label{eq:problem}
- \min_{e>0}\ K(e;\kappa)=M+\int_0^{1/e}\left(F+\frac{\kappa e^2}{2}\right)dt
- =M+\frac{F}{e}+\frac{\kappa}{2}e.
+\textbf{A1. Agente y objetivo.} Se considera un gobierno local que ejecutará un proyecto viable, de alcance y calidad fijos. Condicional a realizarlo, elige la intensidad que minimiza su costo de implementación. Se abstrae de la decisión de aprobar el proyecto y de los beneficios sociales de entregarlo antes. La viabilidad por sí sola no obliga a ejecutar: la ejecución dada es un supuesto del modelo.
+
+\textbf{A2. Tecnología.} El trabajo total se normaliza a una unidad. El municipio elige una intensidad constante $e>0$ y completa el proyecto en $T(e)=1/e$. No hay suspensiones ni una cota superior de intensidad en esta versión.
+
+\textbf{A3. Costos.} $M\geq0$ es el costo base independiente de $e$ y $F>0$ el gasto de permanencia por unidad de tiempo, como administración y supervisión de una obra abierta. Acelerar exige coordinación y recursos adicionales con costo por periodo $\kappa e^2/2$, donde $\kappa>0$. Por tanto,
+\begin{equation}
+\min_{e>0} K(e;\kappa)
+=M+\int_0^{1/e}\left(F+\frac{\kappa}{2}e^2\right)dt
+=M+\underbrace{\frac{F}{e}}_{\text{permanencia}}+
+\underbrace{\frac{\kappa}{2}e}_{\text{aceleración acumulada}}.
+\label{eq:problem}
 \end{equation}
-La línea base supone distritos homogéneos, $\kappa=\bar\kappa>0$. Acelerar ahorra costos de permanencia $F/e$, pero eleva el costo de intensidad $\kappa e/2$. \textbf{El supuesto que se modifica} es la homogeneidad: se permite $\kappa=\kappa(p,C)$, donde $p$ es incidencia de pobreza predeterminada y $C$ es capacidad municipal, con $\kappa_p>0$ y $\kappa_C<0$ en el dominio relevante. Son \emph{supuestos condicionales sobre fricciones asociadas al contexto}, no hechos identificados ni una relación causal estimada. $M$ y $F$ permanecen constantes en esta primera comparación para aislar el canal.
+Una mayor intensidad ahorra permanencia, pero encarece la aceleración. La forma cuadrática representa costos marginales crecientes de acelerar, no una estimación de costos municipales.
 
-El orden de eventos es: (i) en viabilidad se registra un monto previsto $K^V$ usando una fricción de referencia $\kappa^V>0$; (ii) al ejecutar se conoce $\kappa(p,C)$ y se elige $e$; (iii) se observan duración y costo actualizado. Para comparar magnitudes sin cambios de alcance, se supone el mismo $M$ y $F$ en viabilidad y ejecución. La brecha entre $\kappa^V$ y la fricción realizada representa información o restricciones no incorporadas plenamente en el presupuesto inicial.
+\textbf{A4. Heterogeneidad.} La línea base supone $\kappa=\bar\kappa>0$, común a todos los distritos. Se modifica esta homogeneidad permitiendo $\kappa^A=\kappa(p,C)>0$, diferenciable en el interior de $p\in[0,1]$, $C>0$, con $\kappa_p>0$ y $\kappa_C<0$. $p$ es pobreza distrital predeterminada y $C$ capacidad municipal. Estos signos son supuestos estructurales del canal: el contexto asociado a $p$ dificulta acelerar y la capacidad facilita hacerlo. La literatura motiva estudiar fricciones, pero no demuestra necesariamente estos signos.
 
-\section{Resultado esperado y condición de primer orden}
-La condición de primer orden del problema \eqref{eq:problem} y la condición de segundo orden son
-\begin{equation}\label{eq:foc}
- K_e=-\frac{F}{e^2}+\frac{\kappa(p,C)}{2}=0,
- \qquad K_{ee}=\frac{2F}{e^3}>0.
+\textbf{A5. Previsión y secuencia.} En viabilidad se usa $\kappa^V>0$ para registrar un costo previsto. Antes de elegir $e$, el municipio conoce $\kappa^A$ y puede ajustar su intensidad. Luego se realiza el proyecto. Se mantienen $M,F$, alcance y calidad entre etapas. La brecha $\kappa^A-\kappa^V$ recoge restricciones cuya magnitud no se anticipó completamente, aunque $p$ y $C$ fueran observables.
+\newpage
+\section{Resultados esperados y condición de primer orden}
+\textbf{Conjetura 1. Intensidad, duración y costo.} Bajo A1--A4, para cada fricción positiva existe un único óptimo interior. Su caracterización y los resultados esperados son
+\begin{align}
+K_e(e;\kappa)&=-\frac{F}{e^2}+\frac{\kappa}{2}=0,
+&K_{ee}(e;\kappa)&=\frac{2F}{e^3}>0,\label{eq:foc}\\
+e^*(p,C)&=\sqrt{\frac{2F}{\kappa(p,C)}},
+&T^*(p,C)&=\sqrt{\frac{\kappa(p,C)}{2F}},\label{eq:optimal}\\
+K^A(p,C)&=M+\sqrt{2F\kappa(p,C)}.&&\label{eq:cost}
+\end{align}
+La convexidad estricta y $K(e)\to\infty$ cuando $e\downarrow0$ y $e\to\infty$ sustentan existencia, interioridad y unicidad. En la línea base, $e_0=\sqrt{2F/\bar\kappa}$ es común. Con heterogeneidad, las decisiones difieren entre distritos. Para $x\in\{p,C\}$, las comparativas estáticas propuestas son
+\begin{equation}
+e_x^*=-\frac{\sqrt{2F}}{2\kappa^{3/2}}\kappa_x,
+\qquad T_x^*=\frac{\kappa_x}{2\sqrt{2F\kappa}},
+\qquad K_x^A=\frac{F\kappa_x}{\sqrt{2F\kappa}}.
+\label{eq:derivatives}
 \end{equation}
-Como $K(e)\to\infty$ cuando $e\downarrow0$ o $e\to\infty$, existe un único óptimo interior. En la línea base, $e_0=\sqrt{2F/\bar\kappa}$; con heterogeneidad, se espera
-\begin{equation}\label{eq:sol}
- e^*(p,C)=\sqrt{\frac{2F}{\kappa(p,C)}},\qquad
- T^*(p,C)=\sqrt{\frac{\kappa(p,C)}{2F}},\qquad
- K^A(p,C)=M+\sqrt{2F\kappa(p,C)}.
+Así, $e_p^*<0$, $T_p^*>0$, $K_p^A>0$ y los signos se invierten para $C$. El vínculo $p\mapsto\kappa$ se supone; el vínculo $\kappa\mapsto(e^*,T^*,K^A)$ se deriva. Se comparan proyectos con los mismos $M,F$ y, al variar $p$, se mantiene $C$ fijo.
+
+\textbf{Conjetura 2. Sobrecosto respecto de viabilidad.} Bajo A1--A5, el presupuesto representa el costo optimizado bajo la fricción anticipada:
+\begin{equation}
+e^V=\sqrt{\frac{2F}{\kappa^V}},\qquad
+K^V=M+\sqrt{2F\kappa^V},\qquad
+R=\log\!\left(\frac{K^A}{K^V}\right).
 \end{equation}
-En particular, si $\kappa_p>0$, $\partial e^*/\partial p<0$, $\partial T^*/\partial p>0$ y $\partial K^A/\partial p>0$; si $\kappa_C<0$, se invierten los tres signos. Éstas son predicciones \emph{condicionadas al supuesto sobre $\kappa$}, no resultados de la tesis empírica. Para vincular el costo con su indicador, defínase $K^V=M+\sqrt{2F\kappa^V}>0$. Entonces
-\begin{equation}\label{eq:overrun}
- R(p,C)=\log\!\left(\frac{K^A(p,C)}{K^V}\right),\qquad
- R>0\ \Longleftrightarrow\ \kappa(p,C)>\kappa^V,
- \qquad R_p=\frac{F\kappa_p}{K^A\sqrt{2F\kappa}}>0.
+Como el costo optimizado aumenta estrictamente con la fricción,
+\begin{equation}
+\boxed{R>0\ \Longleftrightarrow\ \kappa^A>\kappa^V.}
+\label{eq:overrun}
 \end{equation}
-La última derivada mantiene fijo el monto viable. Una fricción mayor \emph{eleva} $R$; un \emph{sobrecosto positivo} requiere además que la fricción realizada exceda la prevista. La velocidad $e^*=1/T^*$ es una aproximación teórica al ritmo de avance financiero por año de la tesis: sólo coinciden si el gasto sigue proporcionalmente el progreso y el proyecto se completa. Esta limitación será explícita al interpretar proyectos censurados y modificaciones del costo actualizado.
+Si $\kappa^V$ permanece fija, $R_p=K_p^A/K^A>0$. Si la previsión también cambia con $p$, debe considerarse
+$R_p=K_p^A/K^A-K_p^V/K^V$; su signo requiere supuestos adicionales. Por ello, una mayor fricción no implica automáticamente un sobrecosto positivo.
 
-\section{Antecedentes revisados y espacio de la propuesta}
-Se revisaron la literatura y el anexo metodológico de la tesis (pp.\ 3--10 y 23), el resumen y referencias del artículo publicado de Loayza, Rigolini y Calvo-González (2014), el trabajo de Espinoza y Presbitero (2022), y un artículo de optimización de tiempo y costo de proyectos (Mohammadi Atashgah \emph{et al.}, 2022). Loayza \emph{et al.} analizan capacidad de gasto \emph{municipal}, pobreza y presupuesto; su variable no es la duración y el costo de \emph{cada proyecto}. Espinoza y Presbitero estiman determinantes de retrasos en proyectos internacionales y documentan su asociación con aumentos de costo; esa evidencia no deriva la decisión de intensidad local propuesta aquí. La investigación sobre optimización tiempo--costo sí estudia formalmente ese intercambio, de modo que éste \emph{no se reivindica como nuevo}; lo específico que se busca aportar es su conexión con heterogeneidad distrital, una previsión de viabilidad y las dos medidas de la tesis peruana. Esta búsqueda inicial no prueba inexistencia de un modelo equivalente: se ampliará la revisión de versiones de trabajo, apéndices y estudios posteriores antes de sostener una contribución de originalidad fuerte.
+\textbf{Extensión acotada: incorporación de condiciones locales.} Se propone estudiar
+\begin{equation}
+\kappa^V(\lambda)=\lambda\kappa^A+(1-\lambda)\bar\kappa,
+\qquad \lambda\in[0,1],\quad\bar\kappa>0.
+\label{eq:lambda}
+\end{equation}
+$\lambda$ es exógeno: cero corresponde a una referencia genérica y uno a anticipación completa. Es una regla determinista de escenarios, no una expectativa racional ni una decisión óptima de información. Manteniendo $\kappa^A$ fija, se espera
+\begin{equation}
+R_\lambda=-\frac{F(\kappa^A-\bar\kappa)}{K^V\sqrt{2F\kappa^V}}.
+\end{equation}
+Si $\kappa^A>\bar\kappa$, aumentar $\lambda$ reduce $R$; si $\kappa^A<\bar\kappa$, la variación negativa converge a cero desde abajo. En ambos casos, $\lambda=1$ implica $R=0$, manteniendo $e^*$ y $T^*$ sin cambios. La demostración debe cubrir ambos signos de la brecha.
 
-\section{Plan de demostración, simulación y riesgo}
-Se demostrará existencia y unicidad del óptimo, las comparativas estáticas de \eqref{eq:sol} y la condición exacta de sobrecosto en \eqref{eq:overrun}. Se verificará simbólicamente la FOC y las derivadas con SymPy y se simularán escenarios de $\kappa$ y $\kappa^V$ para mostrar casos con $R<0$, $R=0$ y $R>0$; las simulaciones ilustrarán la lógica, sin constituir evidencia empírica. En Lean se formalizarán primero la positividad y caracterización del óptimo y luego el orden de duración y costo ante $\kappa_2>\kappa_1>0$, sin añadir las conclusiones como hipótesis. El riesgo principal es \textbf{la correspondencia de medición}: el gasto financiero por año y el costo actualizado pueden diferir de la intensidad física y del costo teórico, sobre todo en proyectos no terminados o con cambios de alcance. Si esa traducción falla, el resultado quedará presentado como mecanismo cualitativo y se evitará equiparar sus variables a las observadas.
+\textbf{Puente con la tesis.} El anexo 3 mide velocidad como avance financiero acumulado (devengado sobre costo actualizado) dividido por años desde el primer devengado. La variación de costos es el logaritmo del costo actualizado sobre monto viable. $e^*=1/T^*$ coincide con la primera medida únicamente al completar el proyecto y si el gasto es proporcional al progreso, sin desfases entre inicio físico y financiero. El costo actualizado es un registro, no necesariamente un costo final. Las predicciones deben interpretarse considerando censura y cambios de alcance.
+\newpage
+\section{Búsqueda realizada y contribución delimitada}
+\textbf{Búsqueda y criterio de comparación.} A la búsqueda inicial en Banco Mundial, FMI, JISE, arXiv y páginas editoriales se añadió, el 13/10/2026, la revisión de los diez PDF proporcionados. Se examinaron planteamientos, especificaciones y resultados pertinentes; siete son antecedentes centrales. Se comparó unidad de análisis, decisión del agente, costos, duración y tratamiento de la previsión. El registro adjunto documenta versiones, páginas y los tres trabajos complementarios. Esta revisión permite delimitar un aporte respecto del conjunto examinado, sin acreditar originalidad exhaustiva.
 
-\smallskip\noindent\textbf{Fuentes consultadas.} Bolo Añorga y Roque Tinta (2026), \emph{Pobreza y desempeño en la inversión pública en el Perú}, versión del 27/09, pp.\ 3--10, 23. Loayza, Rigolini y Calvo-González (2014), \emph{Economics \& Politics} 26(1), 56--78, \href{https://doi.org/10.1111/ecpo.12026}{doi:10.1111/ecpo.12026}. Espinoza y Presbitero (2022), \emph{International Economics} 172, 297--310, \href{https://doi.org/10.1016/j.inteco.2021.10.002}{doi:10.1016/j.inteco.2021.10.002}. Mohammadi Atashgah \emph{et al.} (2022), \emph{Journal of Industrial and Systems Engineering} 14(3), 259--279, \href{https://www.jise.ir/article_154961_2e9576261fd03c085ad26ecae80b573.pdf}{texto}. Consulta: 13/10/2026.
+\textbf{Capacidad municipal y desempeño.} Loayza, Rigolini y Calvo-González (2014) estudian la proporción del presupuesto ejecutada por municipios peruanos. La publicación completa confirma que personal profesional y educación se asocian con mayor ejecución; la pobreza tiene asociación positiva significativa en gasto corriente y de capital, pero no en el agregado (p.\ 64). Esto motiva incorporar capacidad municipal, pero no prueba $\kappa_p>0$: ejecución presupuestal municipal y velocidad por proyecto son variables distintas.
+
+Presbitero (2016) encuentra que proyectos iniciados durante expansiones de inversión pública tienen menor probabilidad de una evaluación satisfactoria; el efecto es relativamente pequeño y menor en países pobres y con escasez de capital. Su resultado respalda estudiar límites de absorción, sin establecer que pobreza implique peor desempeño. Gambina y Mazzola (2025) analizan duración de proyectos europeos mediante regresiones y modelos de supervivencia. Calidad institucional y densidad poblacional se asocian con ejecución más rápida, mientras que mayor PIB por habitante se asocia con mayor duración. El contexto importa, pero no admite un único signo por nivel de desarrollo.
+
+\textbf{Antecedente teórico próximo: fricciones y costos.} Gurara et al. (2020, sección 2, pp.\ 4--6) ya formalizan la minimización de costos de un contratista bajo incertidumbre de producción. La capacidad de absorción depende del tamaño del programa de inversión y genera costos adicionales; su análisis empírico encuentra una relación en U entre inversión y costos unitarios. Nuestra propuesta se diferencia en el agente y la decisión: un municipio elige $e$ para un proyecto de alcance fijo, con permanencia $F/e$ y aceleración acumulada $\kappa e/2$. Se derivan duración y costo optimizado y se compara la fricción prevista con la realizada. No se atribuye novedad a introducir fricciones en una función de costos.
+
+\textbf{Tiempo, costo y presupuesto inicial.} Mohammadi Atashgah et al. (2022, pp.\ 262--264) ya presentan objetivos de tiempo y costo, modos de ejecución, precedencias y costos directos e indirectos; incorporan incertidumbre y análisis de sobregiro. Aquí se simplifica esa estructura a una intensidad continua para obtener comparativas analíticas. Espinoza y Presbitero (2022) relacionan retrasos con preparación inicial e instituciones; su especificación empírica no determina nuestra intensidad óptima. Flyvbjerg, Holm y Buhl (2002) documentan subestimación sistemática y favorecen una explicación estratégica. Esa alternativa queda fuera del mecanismo de anticipación incompleta: una brecha observada no identifica por sí sola su causa.
+
+\textbf{Contribución propuesta.} En los planteamientos examinados no se identificó exactamente la combinación de $\kappa(p,C)$, intensidad óptima y comparación $\kappa^A$--$\kappa^V$ de este modelo. El aporte propuesto es integrarlos en un mecanismo transparente: una fricción alta eleva duración y costo; el sobrecosto exige que supere la anticipada. La regla exógena $\lambda$ permite separar mejora de ejecución y mejora de previsión. Se trata de una síntesis y adaptación por evaluar, no de un primer modelo general de tiempo--costo. La revisión tampoco identifica causalmente $\kappa_p>0$ ni calibra la función cuadrática. Como continuación, se contrastará esta formulación con modelos de contratos y cambios de diseño citados por Gurara et al.
+\newpage
+\section{Plan de demostración, simulación y riesgos}
+\textbf{Demostrar.} Completar la prueba de existencia y unicidad de la Conjetura 1, derivar las comparativas estáticas y demostrar la equivalencia de la Conjetura 2 con todas sus condiciones. Para la extensión, demostrar $R_\lambda<0$ si $\kappa^A>\bar\kappa$, $R_\lambda>0$ si $\kappa^A<\bar\kappa$ y $R(1)=0$. No se promete endogenizar $\lambda$ en esta entrega.
+
+\textbf{Simular y verificar.} Variar $\kappa^A/\bar\kappa\in[0.5,1.5]$ y $\lambda\in\{0,0.5,1\}$. Graficar el costo según $e$, las razones $e^*/e_0$, $T^*/T_0$ y $R$. Verificar FOC, mínimo global, derivadas por diferencias finitas y casos de costo menor, igual y mayor que el previsto. El script adjunto reproduce los gráficos con $M=10$, $F=2$, $\bar\kappa=1$ y comprueba identidades numéricas. Son unidades arbitrarias sin calibración al Perú. Se añadirá verificación simbólica con SymPy; las simulaciones no son evidencia empírica.
+
+\textbf{Formalizar en Lean.} Primero, la positividad de $e^*$ y el mínimo global: para $q=e^*>0$ y $e>0$,
+\begin{equation}
+K(e;\kappa)-K(q;\kappa)=\frac{\kappa}{2e}(e-q)^2\geq0,
+\qquad q^2=\frac{2F}{\kappa}.
+\end{equation}
+La igualdad exige $e=q$. Luego se formalizarán las comparaciones para $\kappa_2>\kappa_1>0$, la equivalencia de sobrecosto y la extensión. El orden de parámetros permite evitar inicialmente las derivadas. Se seguirá el flujo de AppliedModelingLib del curso, registrando resultados probados, hipótesis adicionales y obstáculos. Lean está pendiente.
+
+\textbf{Riesgos y respuesta.} El principal riesgo es de medición: avance financiero y físico pueden diferir, y el costo actualizado puede incorporar cambios de alcance. Se documentarán esos límites. Si $\kappa_p>0$ no describe los datos o $p$ sólo representa restricciones absorbidas por controles, el modelo no respaldará la hipótesis empírica sobre pobreza. El riesgo técnico es formalizar raíces y logaritmos con sus dominios; la identidad anterior permite empezar sin suponer la conclusión.
+
+\textbf{Estado.} Caracterización analítica preliminar y gráficos numéricos listos. Quedan pendientes la prueba manuscrita completa, SymPy, Lean y ampliar literatura. Se mantendrá un agente y un canal: reducir fricciones mejora la ejecución; anticiparlas mejor reduce la discrepancia presupuestaria sin acelerar por sí mismo la obra.
+
+\vspace{2pt}
+{\small\textbf{Referencias consultadas}\par}
+\begingroup\small\setlength{\parskip}{3pt}
+Bolo Añorga, C. A. y Roque Tinta, I. M. (2026). \emph{Pobreza y desempeño en la inversión pública en el Perú}. Plan de tesis, 27/09, introducción y anexo 3.
+
+Espinoza, R. y Presbitero, A. F. (2022). Delays in public investment projects. \emph{International Economics, 172}, 297--310. \href{https://doi.org/10.1016/j.inteco.2021.10.002}{doi:10.1016/j.inteco.2021.10.002}.
+
+Flyvbjerg, B., Holm, M. K. S. y Buhl, S. L. (2002). Underestimating costs in public works projects: Error or lie? \emph{Journal of the American Planning Association, 68}(3), 279--295. \href{https://doi.org/10.1080/01944360208976273}{doi:10.1080/01944360208976273}. Copia del autor: \href{https://arxiv.org/abs/1303.6604}{arXiv:1303.6604}, depositada en 2013.
+
+Gurara, D., Kpodar, K., Presbitero, A. F. y Tessema, D. (2020). \emph{On the Capacity to Absorb Public Investment: How Much is Too Much?} FMI WP/20/48. Versión completa revisada; publicación posterior: \emph{World Development, 145} (2021), 105525.
+
+Loayza, N. V., Rigolini, J. y Calvo-González, O. (2014). More than you can handle: Decentralization and spending ability of Peruvian municipalities. \emph{Economics \& Politics, 26}(1), 56--78. \href{https://doi.org/10.1111/ecpo.12026}{doi:10.1111/ecpo.12026}. Versión previa: Banco Mundial WPS5763 (2011).
+
+Gambina, D. y Mazzola, F. (2025). The Determinants of the Implementation Speed of Cohesion Projects in Europe: A Regional and Project-level Analysis. \emph{Open Economies Review}. \href{https://doi.org/10.1007/s11079-025-09819-3}{doi:10.1007/s11079-025-09819-3}.
+
+Presbitero, A. F. (2016). Too much and too fast? Public investment scaling-up and absorptive capacity. \emph{Journal of Development Economics, 120}, 17--31. \href{https://doi.org/10.1016/j.jdeveco.2015.12.005}{doi:10.1016/j.jdeveco.2015.12.005}.
+
+Mohammadi Atashgah, K., Ghousi, R., Monir Abbasi, A. y Tayefi Nasrabadi, A. (2022). Developing a model for time-cost trade-off optimization problem considering overdraft issue in uncertain environments. \emph{Journal of Industrial and Systems Engineering, 14}(3), 259--279. \href{https://www.jise.ir/article_154961.html}{Texto y ficha editorial}.
+\endgroup
 \end{document}
