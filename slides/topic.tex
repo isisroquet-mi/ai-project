@@ -1,66 +1,188 @@
-% Topic presentation -- 20 minutes.
-% No animations and no screenshots of papers: equations are typeset in LaTeX.
 \documentclass[aspectratio=169,11pt]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
-\usepackage{amsmath,amssymb}
-\usepackage{booktabs}
+\usepackage{amsmath,amssymb,booktabs,lmodern,array}
+\definecolor{navy}{HTML}{123B65}
+\definecolor{blue}{HTML}{23659A}
+\definecolor{pale}{HTML}{EAF2F8}
 \usetheme{default}
-\usecolortheme{seahorse}
+\setbeamercolor{structure}{fg=navy}
+\setbeamercolor{frametitle}{fg=white,bg=navy}
+\setbeamercolor{title}{fg=navy}
+\setbeamercolor{block title}{fg=white,bg=blue}
+\setbeamercolor{block body}{fg=navy,bg=pale}
 \setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{footline}[frame number]
-\setbeamerfont{frametitle}{size=\large}
-
-\title{Your Working Title}
-\subtitle{Topic presentation --- Track A or Track B}
-\author{Your Name}
-\date{October 2026}
-
+\setbeamertemplate{footline}{\hfill\color{navy}\insertframenumber\,/\,\inserttotalframenumber\hspace{1em}\vspace{0.6em}}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\newcommand{\src}[1]{\vfill{\tiny\color{blue}#1}}
+\title{Fricciones de ejecución y desempeño de la inversión pública local}
+\subtitle{Modelo económico de tesis · Vía B}
+\author{Isis Milagros Roque Tinta}
+\institute{Universidad del Pacífico · Modelamiento Económico}
+\date{14 de octubre de 2026}
 \begin{document}
-
-% The title slide carries the repository link.
 \begin{frame}[plain]
-  \titlepage
-  \begin{center}\small
-    \texttt{github.com/your-user/ai-project}
-  \end{center}
+\titlepage
+\vspace{-0.7em}\begin{center}\small\color{blue}\url{https://github.com/isisroquet-mi/ai-project}\end{center}
 \end{frame}
-
-\begin{frame}{1 \textperiodcentered{} The question}
-  \textbf{Replace.} The question in one sentence, and why the answer is not
-  obvious.
+\begin{frame}{1. Pregunta de la tesis y vía elegida}
+\begin{block}{Pregunta empírica}
+¿Cómo se relaciona la pobreza distrital con la velocidad de ejecución y la variación de costos de proyectos de inversión pública local en el Perú?
+\end{block}
+\begin{itemize}
+\item \textbf{Vía B:} formular el modelo económico que sustenta esta pregunta.
+\item La tesis compara proyectos considerando características del proyecto, territorio, recursos fiscales y capacidad municipal.
+\item El modelo explica \emph{un mecanismo posible}; la relación empírica se evaluará con datos.
+\end{itemize}
+\src{Fuente: Bolo Añorga y Roque Tinta (2026), introducción y anexo metodológico.}
 \end{frame}
-
-\begin{frame}{2 \textperiodcentered{} The baseline model}
-  \textbf{Replace.} The agent's problem, written formally.
-  \[
-    \max_{e \ge 0}\; a e - \frac{c}{2}\, e^{2}
-  \]
-  Cite the paper, the proposition and the page.
+\begin{frame}{1. Dos medidas de desempeño}
+\begin{columns}[T,onlytextwidth]
+\column{0.48\textwidth}
+\begin{block}{Velocidad de ejecución}
+Avance financiero acumulado dividido por años desde el primer devengado. Complemento: duración con censura.
+\end{block}
+\column{0.48\textwidth}
+\begin{block}{Variación de costos}
+$\displaystyle \log\!\left(\frac{\text{costo actualizado}}{\text{monto viable}}\right)$\\[0.4em]
+Valor positivo: costo superior al previsto.
+\end{block}
+\end{columns}
+\vspace{0.8em}\centering\color{navy}\bfseries Una decisión de intensidad puede mover tiempo y costo.
+\src{Fuente: tesis, anexo 3, p. 23. Las medidas teóricas sólo aproximan las observadas.}
 \end{frame}
-
-\begin{frame}{3 \textperiodcentered{} The assumption I change}
-  \textbf{Replace.} Which assumption, in the paper's notation, and what
-  replaces it.
+\begin{frame}{2. Línea base: problema del agente}
+\begin{itemize}
+\item Proyecto unitario; municipio elige intensidad constante $e>0$.
+\item Duración $T(e)=1/e$; costo directo $M\geq0$.
+\item $F>0$: costo por periodo abierto; $\kappa e^2/2$: costo por periodo de acelerar.
+\end{itemize}
+\begin{block}{Costo total que se minimiza}
+\[
+\min_{e>0}K(e;\kappa)=M+\underbrace{\frac{F}{e}}_{\text{permanencia}}+
+\underbrace{\frac{\kappa}{2}e}_{\text{intensidad acumulada}}.
+\]
+\end{block}
+\small En el benchmark homogéneo todos comparten $\kappa=\bar\kappa>0$.
 \end{frame}
-
-\begin{frame}{4 \textperiodcentered{} The result I expect}
-  \textbf{Replace.} The first-order condition you expect, and which result of
-  the baseline should change and in which direction.
-  \[
-    a - c e = 0 \quad\Longrightarrow\quad e^{*} = \frac{a}{c}
-  \]
+\begin{frame}{2. Supuesto que se modifica}
+\begin{block}{De homogeneidad a fricción distrital}
+\[
+\bar\kappa\quad\longrightarrow\quad \kappa=\kappa(p,C)>0,
+\qquad \kappa_p>0,\quad\kappa_C<0.
+\]
+\end{block}
+\begin{itemize}
+\item $p$: pobreza distrital predeterminada; $C$: capacidad municipal.
+\item $\kappa$: dificultad de acelerar coordinación, supervisión y ejecución.
+\end{itemize}
+\vspace{0.6em}\small\color{navy} Los signos son supuestos del canal, no estimaciones ni una afirmación de causalidad de la pobreza.
 \end{frame}
-
-\begin{frame}{5 \textperiodcentered{} Why this is not already solved}
-  \textbf{Replace.} Where you looked --- appendices, working-paper versions,
-  citing papers --- and what you found.
+\begin{frame}{2. Secuencia y presupuesto inicial}
+\begin{enumerate}
+\item \textbf{Viabilidad:} se prevé $\kappa^V$ y se registra $K^V$.
+\item \textbf{Ejecución:} se conoce $\kappa(p,C)$ y se elige $e$.
+\item \textbf{Resultado:} se observan duración y costo actualizado $K^A$.
+\end{enumerate}
+\vspace{0.8em}
+\begin{block}{Comparación}
+Mismo proyecto, $M$ y $F$ en ambos momentos. La diferencia entre $\kappa^V$ y $\kappa$ recoge fricciones no previstas en viabilidad.
+\end{block}
+\small Si cambia el alcance, este modelo no aísla esa causa del sobrecosto.
 \end{frame}
-
-\begin{frame}{6 \textperiodcentered{} Plan and risks}
-  \textbf{Replace.} What you will prove, simulate and formalize in Lean; the
-  step most likely to fail.
+\begin{frame}{3. Condición de primer orden}
+\[
+K_e(e;\kappa)=-\frac{F}{e^2}+\frac{\kappa}{2}=0
+\quad\Longrightarrow\quad
+\boxed{e^*(p,C)=\sqrt{\frac{2F}{\kappa(p,C)}}}.
+\]
+\begin{block}{Óptimo único}
+$K_{ee}=2F/e^3>0$ y $K(e)\to\infty$ en ambos extremos de $e>0$.
+\end{block}
+\vspace{0.5em}
+Benchmark: $\displaystyle e_0=\sqrt{2F/\bar\kappa}$. Al permitir $\kappa(p,C)$, el óptimo varía entre distritos.
 \end{frame}
-
+\begin{frame}{3. Predicciones de duración y costo}
+\[
+\boxed{T^*=\frac{1}{e^*}=\sqrt{\frac{\kappa}{2F}}}
+\qquad
+\boxed{K^A=M+\sqrt{2F\kappa}}.
+\]
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Cambio supuesto & Intensidad $e^*$ & Duración $T^*$ & Costo $K^A$\\
+\midrule
+$\kappa_p>0$: aumenta $p$ & baja & sube & sube\\
+$\kappa_C<0$: aumenta $C$ & sube & baja & baja\\
+\bottomrule
+\end{tabular}
+\end{center}
+\small Predicciones \emph{condicionadas} a cómo el contexto altera $\kappa$.
+\end{frame}
+\begin{frame}{3. ¿Cuándo hay sobrecosto respecto a viabilidad?}
+\[
+K^V=M+\sqrt{2F\kappa^V},\qquad
+R=\log\!\left(\frac{K^A}{K^V}\right).
+\]
+\begin{block}{Condición exacta}
+\[
+R>0\quad\Longleftrightarrow\quad\kappa(p,C)>\kappa^V.
+\]
+\end{block}
+\small Una fricción mayor eleva $R$, pero si ya estaba prevista no genera por sí misma un sobrecosto positivo.
+\end{frame}
+\begin{frame}{3. Puente y límite de medición}
+\begin{columns}[T,onlytextwidth]
+\column{0.48\textwidth}
+\textbf{Modelo}\par\medskip
+$e^*=1/T^*$: avance físico uniforme.\par\medskip
+$R$: costo optimizado relativo al previsto.
+\column{0.48\textwidth}
+\textbf{Tesis}\par\medskip
+Avance \emph{financiero} por año.\par\medskip
+Log(costo actualizado/monto viable).
+\end{columns}
+\vspace{1em}
+\begin{block}{Precaución}
+La equivalencia de velocidades exige gasto proporcional al progreso y proyecto completado. Suspensión, censura y cambios de alcance requieren tratamiento aparte.
+\end{block}
+\end{frame}
+\begin{frame}{4. Búsqueda de antecedentes}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.66\textwidth}@{}}
+\toprule
+Fuente & Alcance y diferencia\\
+\midrule
+Loayza et al. (2014) & Gasto municipal, pobreza y presupuesto; no duración y costo por proyecto.\\[0.35em]
+Espinoza y Presbitero (2022) & Retrasos de proyectos y su asociación con costo; no la elección de intensidad local.\\[0.35em]
+Atashgah et al. (2022) & Optimización tiempo--costo: el intercambio básico ya existe.\\
+\bottomrule
+\end{tabular}\par
+\vspace{0.5em}
+\small Se revisaron también literatura y anexo metodológico de la tesis. La búsqueda inicial no establece originalidad exhaustiva.
+\src{DOI: 10.1111/ecpo.12026; 10.1016/j.inteco.2021.10.002; JISE 14(3), 2022.}
+\end{frame}
+\begin{frame}{5. Plan y riesgo principal}
+\begin{itemize}
+\item \textbf{Demostrar:} óptimo único, comparativas estáticas y condición $R>0$.
+\item \textbf{Verificar:} FOC y derivadas con SymPy; escenarios $\kappa$ menor, igual y mayor que $\kappa^V$.
+\item \textbf{Formalizar en Lean:} caracterización del óptimo y orden de duración y costo entre fricciones positivas.
+\end{itemize}
+\begin{block}{Mayor riesgo}
+La intensidad física no equivale necesariamente al avance financiero anual; el costo actualizado incluye otras causas.
+\end{block}
+\small Si falla el puente de medición, el resultado será una predicción cualitativa.
+\end{frame}
+\begin{frame}{Referencias}
+\footnotesize
+\begin{itemize}
+\item Bolo Añorga, C. A. y Roque Tinta, I. M. (2026). \emph{Pobreza y desempeño en la inversión pública en el Perú}. Plan de tesis, 27/09.
+\item Loayza, Rigolini y Calvo-González (2014). More than you can handle. \emph{Economics \& Politics}, 26(1), 56--78.
+\item Espinoza y Presbitero (2022). Delays in public investment projects. \emph{International Economics}, 172, 297--310.
+\item Mohammadi Atashgah et al. (2022). Developing a model for time-cost trade-off optimization problem considering overdraft issue in uncertain environments. \emph{JISE}, 14(3), 259--279.
+\end{itemize}
+\vspace{0.3em}\centering\color{navy}\textbf{Pregunta:} ¿qué supuesto de medición conviene relajar primero?
+\end{frame}
 \end{document}
