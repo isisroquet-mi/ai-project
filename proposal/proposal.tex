@@ -1,59 +1,60 @@
-% Topic document -- 2 to 4 pages in THIS format (11pt, 1-inch margins).
-% It accompanies the 20-minute topic presentation.
+% Vía B, presentación del tema. Compilar desde proposal/.
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[english]{babel}
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath,amssymb,amsthm}
 \usepackage{xcolor}
-\usepackage[round]{natbib}
-\usepackage[colorlinks=true,allcolors=blue!50!black]{hyperref}
-
-\newcommand{\replace}[1]{\par\smallskip\noindent
-  \fcolorbox{orange!80!black}{yellow!12}{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{%
-  \small\textbf{Replace.} #1}}\par\smallskip}
-
-\title{Project Topic: Your Working Title}
-\author{Your Name \\ \small\url{https://github.com/your-user/ai-project}}
-\date{Topic presentation, October 2026}
-
+\usepackage{titlesec}
+\usepackage[colorlinks=true,allcolors=blue!55!black]{hyperref}
+\definecolor{azul}{HTML}{123B65}
+\titlespacing*{\section}{0pt}{1.3ex}{0.45ex}
 \begin{document}
-\maketitle
+\begin{center}
+{\large\color{azul}\bfseries Fricciones de ejecución y desempeño de la inversión pública local}\\[0.3em]
+Isis Milagros Roque Tinta · Vía B: modelo económico de tesis\\[-0.1em]
+{\small Presentación del tema · 14 de octubre de 2026 · \url{https://github.com/isisroquet-mi/ai-project}}
+\end{center}
+\vspace{-0.7em}
+\section{Pregunta y vía}
+La tesis de Bolo Añorga y Roque Tinta (2026), \emph{Pobreza y desempeño en la inversión pública en el Perú}, pregunta cómo se relaciona la pobreza distrital con la velocidad de ejecución y la variación de costos de proyectos de gobiernos locales. Su análisis empírico mide la velocidad mediante avance financiero acumulado por año transcurrido desde el primer devengado y la variación de costos mediante el logaritmo del cociente entre costo actualizado y monto viable. La hipótesis es asociativa y contempla características del proyecto, territorio, recursos fiscales y capacidad municipal. Este proyecto elige la \textbf{Vía B}: formular un mecanismo teórico estilizado que dé una interpretación económica a ambas dimensiones, sin sustituir la estrategia empírica ni atribuir causalidad directa a la pobreza.
 
-\section{The question and the track}
-\replace{One paragraph. The question in one sentence, and the track:
-\textbf{Track A} --- you relax an assumption of a course paper and re-derive the
-proposition it affects; or \textbf{Track B} --- you formulate the economic model
-behind your own thesis.}
-
-\section{The baseline and the assumption you change}
-\replace{Track A: cite the paper, the exact proposition and page, and state the
-assumption you relax, in the paper's notation. Track B: state the model your
-thesis currently lacks or cites as a black box. Write the agent's problem
-formally --- what is maximised, over which variable, under which constraints.}
-
-\section{The result you expect}
-\replace{Write the first-order condition you expect to obtain, and say which
-result of the baseline you expect to change and in which direction. This is a
-conjecture: it is graded on being precise, not on being right.}
-
-\begin{equation}\label{eq:foc}
-  \frac{\partial}{\partial e}\Bigl[\, a e - \tfrac{c}{2} e^{2} \Bigr]
-  \;=\; a - c e \;=\; 0 .
+\section{Línea base y supuesto que se modifica}
+Se toma un proyecto de tamaño normalizado a una unidad y un gobierno local que, después de conocer las condiciones de ejecución, escoge una intensidad constante $e>0$ (avance físico equivalente por unidad de tiempo). Su duración es $T(e)=1/e$. El costo directo inevitable es $M\geq0$; mientras la obra siga abierta se paga $F>0$ por unidad de tiempo; y acelerar requiere coordinación, supervisión y recursos cuyo costo \emph{por unidad de tiempo} es $\kappa e^2/2$, con $\kappa>0$. El costo total que minimiza el municipio es
+\begin{equation}\label{eq:problem}
+ \min_{e>0}\ K(e;\kappa)=M+\int_0^{1/e}\left(F+\frac{\kappa e^2}{2}\right)dt
+ =M+\frac{F}{e}+\frac{\kappa}{2}e.
 \end{equation}
+La línea base supone distritos homogéneos, $\kappa=\bar\kappa>0$. Acelerar ahorra costos de permanencia $F/e$, pero eleva el costo de intensidad $\kappa e/2$. \textbf{El supuesto que se modifica} es la homogeneidad: se permite $\kappa=\kappa(p,C)$, donde $p$ es incidencia de pobreza predeterminada y $C$ es capacidad municipal, con $\kappa_p>0$ y $\kappa_C<0$ en el dominio relevante. Son \emph{supuestos condicionales sobre fricciones asociadas al contexto}, no hechos identificados ni una relación causal estimada. $M$ y $F$ permanecen constantes en esta primera comparación para aislar el canal.
 
-\section{Why this is not already solved}
-\replace{Where you looked: the paper's appendices, its working-paper versions,
-and the papers that cite it. Say what you found and why it does not answer your
-question. ``The model did not find it'' is not evidence.}
+El orden de eventos es: (i) en viabilidad se registra un monto previsto $K^V$ usando una fricción de referencia $\kappa^V>0$; (ii) al ejecutar se conoce $\kappa(p,C)$ y se elige $e$; (iii) se observan duración y costo actualizado. Para comparar magnitudes sin cambios de alcance, se supone el mismo $M$ y $F$ en viabilidad y ejecución. La brecha entre $\kappa^V$ y la fricción realizada representa información o restricciones no incorporadas plenamente en el presupuesto inicial.
 
-\section{Plan and risks}
-\replace{What you will prove, what you will simulate, and what you will
-formalize in Lean. Name the step most likely to fail and what you will do if it
-does.}
+\section{Resultado esperado y condición de primer orden}
+La condición de primer orden del problema \eqref{eq:problem} y la condición de segundo orden son
+\begin{equation}\label{eq:foc}
+ K_e=-\frac{F}{e^2}+\frac{\kappa(p,C)}{2}=0,
+ \qquad K_{ee}=\frac{2F}{e^3}>0.
+\end{equation}
+Como $K(e)\to\infty$ cuando $e\downarrow0$ o $e\to\infty$, existe un único óptimo interior. En la línea base, $e_0=\sqrt{2F/\bar\kappa}$; con heterogeneidad, se espera
+\begin{equation}\label{eq:sol}
+ e^*(p,C)=\sqrt{\frac{2F}{\kappa(p,C)}},\qquad
+ T^*(p,C)=\sqrt{\frac{\kappa(p,C)}{2F}},\qquad
+ K^A(p,C)=M+\sqrt{2F\kappa(p,C)}.
+\end{equation}
+En particular, si $\kappa_p>0$, $\partial e^*/\partial p<0$, $\partial T^*/\partial p>0$ y $\partial K^A/\partial p>0$; si $\kappa_C<0$, se invierten los tres signos. Éstas son predicciones \emph{condicionadas al supuesto sobre $\kappa$}, no resultados de la tesis empírica. Para vincular el costo con su indicador, defínase $K^V=M+\sqrt{2F\kappa^V}>0$. Entonces
+\begin{equation}\label{eq:overrun}
+ R(p,C)=\log\!\left(\frac{K^A(p,C)}{K^V}\right),\qquad
+ R>0\ \Longleftrightarrow\ \kappa(p,C)>\kappa^V,
+ \qquad R_p=\frac{F\kappa_p}{K^A\sqrt{2F\kappa}}>0.
+\end{equation}
+La última derivada mantiene fijo el monto viable. Una fricción mayor \emph{eleva} $R$; un \emph{sobrecosto positivo} requiere además que la fricción realizada exceda la prevista. La velocidad $e^*=1/T^*$ es una aproximación teórica al ritmo de avance financiero por año de la tesis: sólo coinciden si el gasto sigue proporcionalmente el progreso y el proyecto se completa. Esta limitación será explícita al interpretar proyectos censurados y modificaciones del costo actualizado.
 
-\bibliographystyle{plainnat}
-\bibliography{../paper/references}
-\nocite{acemoglu2018race}
+\section{Antecedentes revisados y espacio de la propuesta}
+Se revisaron la literatura y el anexo metodológico de la tesis (pp.\ 3--10 y 23), el resumen y referencias del artículo publicado de Loayza, Rigolini y Calvo-González (2014), el trabajo de Espinoza y Presbitero (2022), y un artículo de optimización de tiempo y costo de proyectos (Mohammadi Atashgah \emph{et al.}, 2022). Loayza \emph{et al.} analizan capacidad de gasto \emph{municipal}, pobreza y presupuesto; su variable no es la duración y el costo de \emph{cada proyecto}. Espinoza y Presbitero estiman determinantes de retrasos en proyectos internacionales y documentan su asociación con aumentos de costo; esa evidencia no deriva la decisión de intensidad local propuesta aquí. La investigación sobre optimización tiempo--costo sí estudia formalmente ese intercambio, de modo que éste \emph{no se reivindica como nuevo}; lo específico que se busca aportar es su conexión con heterogeneidad distrital, una previsión de viabilidad y las dos medidas de la tesis peruana. Esta búsqueda inicial no prueba inexistencia de un modelo equivalente: se ampliará la revisión de versiones de trabajo, apéndices y estudios posteriores antes de sostener una contribución de originalidad fuerte.
 
+\section{Plan de demostración, simulación y riesgo}
+Se demostrará existencia y unicidad del óptimo, las comparativas estáticas de \eqref{eq:sol} y la condición exacta de sobrecosto en \eqref{eq:overrun}. Se verificará simbólicamente la FOC y las derivadas con SymPy y se simularán escenarios de $\kappa$ y $\kappa^V$ para mostrar casos con $R<0$, $R=0$ y $R>0$; las simulaciones ilustrarán la lógica, sin constituir evidencia empírica. En Lean se formalizarán primero la positividad y caracterización del óptimo y luego el orden de duración y costo ante $\kappa_2>\kappa_1>0$, sin añadir las conclusiones como hipótesis. El riesgo principal es \textbf{la correspondencia de medición}: el gasto financiero por año y el costo actualizado pueden diferir de la intensidad física y del costo teórico, sobre todo en proyectos no terminados o con cambios de alcance. Si esa traducción falla, el resultado quedará presentado como mecanismo cualitativo y se evitará equiparar sus variables a las observadas.
+
+\smallskip\noindent\textbf{Fuentes consultadas.} Bolo Añorga y Roque Tinta (2026), \emph{Pobreza y desempeño en la inversión pública en el Perú}, versión del 27/09, pp.\ 3--10, 23. Loayza, Rigolini y Calvo-González (2014), \emph{Economics \& Politics} 26(1), 56--78, \href{https://doi.org/10.1111/ecpo.12026}{doi:10.1111/ecpo.12026}. Espinoza y Presbitero (2022), \emph{International Economics} 172, 297--310, \href{https://doi.org/10.1016/j.inteco.2021.10.002}{doi:10.1016/j.inteco.2021.10.002}. Mohammadi Atashgah \emph{et al.} (2022), \emph{Journal of Industrial and Systems Engineering} 14(3), 259--279, \href{https://www.jise.ir/article_154961_2e9576261fd03c085ad26ecae80b573.pdf}{texto}. Consulta: 13/10/2026.
 \end{document}
