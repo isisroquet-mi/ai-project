@@ -1,9 +1,10 @@
-"""Reproduce las figuras ilustrativas y verifica los resultados numéricos.
+"""Reproduce las figuras y verifica los resultados simbólicos y numéricos.
 Ejecutar desde cualquier carpeta: python code/verify.py
-No calibra ni estima datos del Perú. No reemplaza la prueba ni Lean.
+No calibra ni estima datos del Perú. No reemplaza la prueba matemática.
 """
 from pathlib import Path
 import numpy as np
+import sympy as sp
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -22,6 +23,28 @@ def cost(e, k, m=M, f=F): return m+f/e+k*e/2
 def value(k, m=M, f=F): return m+np.sqrt(2*f*k)
 def overrun(k, lam, kb=KB, m=M, f=F):
     return np.log(value(k,m,f)/value(lam*k+(1-lam)*kb,m,f))
+
+# Verificación simbólica exacta con dominios positivos.
+es, fs, ks, ms = sp.symbols('e F kappa M', positive=True)
+qs = sp.sqrt(2*fs/ks)
+Ks = ms + fs/es + ks*es/2
+Kstars = ms + sp.sqrt(2*fs*ks)
+assert sp.simplify(sp.diff(Ks, es).subs(es, qs)) == 0
+assert sp.simplify(sp.diff(Ks, es, 2) - 2*fs/es**3) == 0
+assert sp.ask(sp.Q.positive(sp.diff(Ks, es, 2))) is True
+assert sp.simplify(
+    Ks - Ks.subs(es, qs) - ks*(es-qs)**2/(2*es)
+) == 0
+assert sp.simplify(
+    sp.diff(qs, ks) + sp.sqrt(2*fs)/(2*ks**sp.Rational(3, 2))
+) == 0
+assert sp.simplify(
+    sp.diff(1/qs, ks) - 1/(2*sp.sqrt(2*fs*ks))
+) == 0
+assert sp.simplify(
+    sp.diff(Kstars, ks) - sp.sqrt(fs/(2*ks))
+) == 0
+assert sp.ask(sp.Q.positive(sp.diff(Kstars, ks))) is True
 
 # Mínimo global, FOC y unicidad por la identidad exacta, en una malla amplia.
 rng = np.random.default_rng(261014)
@@ -87,4 +110,4 @@ ax.legend(frameon=False,loc='lower right')
 ax.annotate('Costo superior al previsto',xy=(1.32,.025),xytext=(1.07,.032),fontsize=10)
 ax.annotate('Costo inferior al previsto',xy=(.7,-.026),xytext=(.52,-.045),fontsize=10)
 fig.savefig(FIG/'overrun.pdf');plt.close(fig)
-print('OK: FOC, mínimo global, orden de resultados, derivadas y anticipación. Figuras reproducidas.')
+print('OK: SymPy, mínimo global, derivadas, sobrecosto y anticipación. Figuras reproducidas.')

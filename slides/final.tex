@@ -1,107 +1,495 @@
-% Final presentation -- work in progress, presented for critique.
-% No animations and no screenshots of papers: equations are typeset in LaTeX.
-\documentclass[aspectratio=169,11pt]{beamer}
-\usepackage[utf8]{inputenc}
+% Presentacion final del modelo economico de tesis.
+% Sin animaciones ni capturas de articulos. Las ecuaciones se escriben en LaTeX.
+\documentclass[11pt,aspectratio=169]{beamer}
 \usepackage[T1]{fontenc}
-\usepackage[english]{babel}
-\usepackage{amsmath,amssymb}
-\usepackage{booktabs}
-\usepackage{graphicx}
-\usepackage{newunicodechar}
-% Lean code is full of Unicode that typewriter fonts do not have. Each line
-% maps one symbol to math mode, so Lean can be pasted into a verbatim block
-% as it is (inside a [fragile] frame). Add a line for any symbol you need.
-\newunicodechar{∀}{\ensuremath{\forall}}  \newunicodechar{∃}{\ensuremath{\exists}}
-\newunicodechar{→}{\ensuremath{\to}}      \newunicodechar{↔}{\ensuremath{\leftrightarrow}}
-\newunicodechar{∧}{\ensuremath{\land}}    \newunicodechar{∨}{\ensuremath{\lor}}
-\newunicodechar{¬}{\ensuremath{\lnot}}    \newunicodechar{×}{\ensuremath{\times}}
-\newunicodechar{∈}{\ensuremath{\in}}      \newunicodechar{∉}{\ensuremath{\notin}}
-\newunicodechar{≤}{\ensuremath{\le}}      \newunicodechar{≥}{\ensuremath{\ge}}
-\newunicodechar{≠}{\ensuremath{\ne}}      \newunicodechar{↦}{\ensuremath{\mapsto}}
-\newunicodechar{ℝ}{\ensuremath{\mathbb{R}}} \newunicodechar{ℕ}{\ensuremath{\mathbb{N}}}
-\newunicodechar{⟨}{\ensuremath{\langle}}  \newunicodechar{⟩}{\ensuremath{\rangle}}
-\newunicodechar{λ}{\ensuremath{\lambda}}  \newunicodechar{α}{\ensuremath{\alpha}}
-\newunicodechar{β}{\ensuremath{\beta}}    \newunicodechar{ε}{\ensuremath{\varepsilon}}
-\usetheme{default}
-\usecolortheme{seahorse}
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{footline}[frame number]
-\setbeamerfont{frametitle}{size=\large}
+\usepackage[utf8]{inputenc}
+\usepackage{babel}
+\babelprovide[main,import]{spanish}
+\usepackage{lmodern,amsmath,amssymb,booktabs,array,graphicx}
 
-\title{Your Title}
-\subtitle{Final presentation}
-\author{Your Name}
-\date{October--November 2026}
+\definecolor{navy}{HTML}{17324D}
+\definecolor{teal}{HTML}{168F8A}
+\definecolor{pale}{HTML}{EDF5F7}
+\setbeamercolor{normal text}{fg=navy,bg=white}
+\setbeamercolor{structure}{fg=teal}
+\setbeamercolor{frametitle}{fg=navy}
+\setbeamercolor{title}{fg=navy}
+\setbeamercolor{block title}{fg=navy,bg=pale}
+\setbeamercolor{block body}{fg=navy,bg=pale}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+\setbeamerfont{block title}{series=\bfseries}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}{\color{teal}\small$\bullet$}
+\setbeamertemplate{footline}{\hfill\color{navy}\scriptsize\insertframenumber\,/\,\inserttotalframenumber\hspace{6mm}\par\vspace{3mm}}
+\setbeamersize{text margin left=9mm,text margin right=9mm}
+\hypersetup{colorlinks=true,urlcolor=teal}
+
+\newcommand{\notefoot}[1]{\vfill{\scriptsize\color{navy!75}#1}}
+\newcommand{\lead}[1]{\begin{block}{}#1\end{block}}
+\newcommand{\KA}{K^{A}}
+\newcommand{\KV}{K^{V}}
+
+\title{Fricciones de ejecución y desempeño\\de la inversión pública local}
+\subtitle{Modelo económico de tesis - Presentación final}
+\author{Isis Milagros Roque Tinta}
+\institute{Universidad del Pacífico - Modelamiento Económico}
+\date{Noviembre de 2026}
 
 \begin{document}
 
-% The title slide carries the repository link.
 \begin{frame}[plain]
   \titlepage
-  \begin{center}\small
-    \texttt{github.com/your-user/ai-project}
+  \vspace{-3mm}
+  \begin{center}
+    \begin{minipage}{.88\textwidth}
+      \centering
+      \small\textbf{Resultado principal}\par\smallskip
+      Una mayor fricción reduce la intensidad óptima y aumenta duración y costo. Existe sobrecosto sólo cuando la fricción realizada supera la prevista.
+      \[
+        \kappa\uparrow\ \Longrightarrow\ e^*\downarrow,\ T^*\uparrow,\ K^*\uparrow,
+        \qquad R>0\iff\kappa^A>\kappa^V.
+      \]
+      \scriptsize\url{https://github.com/isisroquet-mi/ai-project}
+    \end{minipage}
   \end{center}
 \end{frame}
 
-\begin{frame}{1 \textperiodcentered{} The question and the answer}
-  \textbf{Replace.} The question, and your result in one sentence --- with its
-  condition.
+\begin{frame}{Pregunta y respuesta del modelo}
+\textbf{Pregunta de la tesis}\par\smallskip
+¿Cómo se relaciona la pobreza distrital con la velocidad de ejecución y la variación de costos de proyectos de inversión pública local en el Perú?
+
+\vspace{5mm}
+\textbf{Pregunta teórica}\par\smallskip
+¿Cómo cambia la intensidad elegida cuando ejecutar resulta más difícil y cuándo aparece un sobrecosto respecto de lo previsto?
+
+\lead{El mecanismo separa dos objetos. Una fricción alta eleva el costo óptimo. El sobrecosto aparece cuando la fricción realizada supera la fricción usada en el presupuesto.}
+\notefoot{El modelo produce predicciones condicionales. La relación causal entre pobreza y fricción requiere evidencia empírica.}
 \end{frame}
 
-\begin{frame}{2 \textperiodcentered{} The model}
-  \textbf{Replace.} Primitives, timing, and the agent's problem.
-  \[
-    \max_{e \ge 0}\; a e - \frac{c}{2}\, e^{2}, \qquad a > 0,\; c > 0
-  \]
+\begin{frame}{Agente, decisión y alcance}
+\begin{itemize}\setlength{\itemsep}{4mm}
+  \item \textbf{A1. Proyecto.} El municipio ejecutará un proyecto de alcance y calidad fijos y minimiza su costo de implementación.
+  \item \textbf{A2. Decisión.} El municipio elige una sola vez una intensidad constante $e>0$. Por tanto, $e$ no depende del tiempo.
+  \item \textbf{A3. Costos.} $M\geq0$ es el costo base, $F>0$ el gasto de permanencia por periodo y $\kappa>0$ la fricción para acelerar.
+\end{itemize}
+\lead{El modelo principal estudia el margen intensivo, es decir, cómo ejecutar. Toma como dada la decisión de ejecutar.}
+\notefoot{La aprobación del proyecto y el beneficio social de entregarlo antes quedan fuera del problema base.}
 \end{frame}
 
-\begin{frame}{3 \textperiodcentered{} The result, with all its conditions}
-  \textbf{Replace.} The proposition as it is stated in the paper.
-
-  \medskip
-  \textbf{Proposition 1.} If $a > 0$ and $c > 0$, the unique solution is
-  $e^{*} = a/c$, and $\partial e^{*}/\partial a = 1/c > 0$.
+\begin{frame}{Trabajo normalizado y duración}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{.46\textwidth}
+\textbf{Trabajo total}
+\[
+Q=1.
+\]
+\textbf{Intensidad constante durante la obra}
+\[
+Q=eT.
+\]
+\textbf{Momento de culminación}
+\[
+eT=1
+\quad\Longrightarrow\quad
+\boxed{T(e)=\frac{1}{e}}.
+\]
+\end{column}
+\begin{column}{.49\textwidth}
+\begin{block}{Lectura económica}
+Una intensidad mayor completa la unidad de trabajo en menos tiempo.
+\end{block}
+\vspace{3mm}
+\begin{block}{Supuesto relevante}
+No hay suspensiones, cambios de intensidad ni una cota superior para $e$ en esta versión.
+\end{block}
+\end{column}
+\end{columns}
+\notefoot{$1/e$ representa la duración total y el instante en que culmina el proyecto.}
 \end{frame}
 
-\begin{frame}{4 \textperiodcentered{} The proof: what is done and what is open}
-  \textbf{Replace.} The idea of the proof, the step that was hard, and what is
-  still open today. This is a progress report: say where you are.
+\begin{frame}{Función de costos y variable de integración}
+\textbf{Costo acumulado durante la ejecución}
+\[
+K(e;\kappa)=M+\int_{0}^{1/e}
+\left(F+\frac{\kappa e^2}{2}\right)\,dt.
+\]
+\begin{itemize}\setlength{\itemsep}{1.5mm}
+  \item $t$ es la variable de integración.
+  \item $e$, $F$ y $\kappa$ permanecen constantes para ese proyecto.
+  \item El intervalo $[0,1/e]$ cubre toda la duración de la obra.
+\end{itemize}
+\[
+\begin{aligned}
+K(e;\kappa)
+&=M+\left(F+\frac{\kappa e^2}{2}\right)\frac{1}{e}\\
+&=\boxed{M+\frac{F}{e}+\frac{\kappa e}{2}}.
+\end{aligned}
+\]
+\notefoot{$F/e$ cae con la intensidad. $\kappa e/2$ aumenta con la intensidad.}
 \end{frame}
 
-\begin{frame}{5 \textperiodcentered{} Simulations}
-  \begin{columns}
-    \column{.56\linewidth}
-    \includegraphics[width=\linewidth]{../code/figures/effort_check.pdf}
-    \column{.40\linewidth}
-    \textbf{Replace.} What the script checks, on which parameter range, and
-    what a simulation cannot show.
-  \end{columns}
+\begin{frame}{Fricción local: supuesto y resultado}
+\textbf{A4. Heterogeneidad distrital}
+\[
+\kappa^A=\kappa(p,C)>0,
+\qquad \kappa_p>0,
+\qquad \kappa_C<0.
+\]
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.46\textwidth}
+\begin{block}{Supuesto estructural}
+El contexto distrital y la capacidad municipal determinan la fricción:
+\[
+(p,C)\longmapsto\kappa.
+\]
+\end{block}
+\end{column}
+\begin{column}{.46\textwidth}
+\begin{block}{Resultado del modelo}
+La fricción determina intensidad, duración y costo:
+\[
+\kappa\longmapsto(e^*,T^*,K^*).
+\]
+\end{block}
+\end{column}
+\end{columns}
+\medskip\textbf{El modelo no demuestra $\kappa_p>0$.} Ese signo requiere contraste empírico.
+\notefoot{$p\in[0,1]$ mide pobreza distrital y $C>0$ capacidad municipal. Las comparaciones mantienen fijos los demás parámetros.}
 \end{frame}
 
-% Required: paper statement -> Lean statement -> what Lean verifies.
-\begin{frame}[fragile]{6 \textperiodcentered{} Lean: what is verified}
-  \textbf{In the paper.} $a > 0,\ c > 0 \;\Longrightarrow\; e^{*} = a/c$.
-
-  \medskip
-  \textbf{In Lean} (replace with your own statement and proof fragment):
-\begin{verbatim}
-theorem prop_effort (a c : ℝ) (ha : 0 < a) (hc : 0 < c) :
-    a / c ∈ Set.Ici (0 : ℝ) ∧
-    IsMaxOn (fun e => a * e - c / 2 * e ^ 2) (Set.Ici 0) (a / c)
-\end{verbatim}
-  \textbf{Replace.} How the objects and assumptions are represented, whether
-  Lean verifies the paper's claim exactly or under an added hypothesis, and the
-  result of the check.
+\begin{frame}{Previsión ex ante y ejecución}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.46\textwidth}
+\textbf{Etapa ex ante}\par\vspace{2mm}
+El presupuesto usa $\kappa^V>0$.
+\[
+e^V=\sqrt{\frac{2F}{\kappa^V}},\qquad
+T^V=\frac{1}{e^V},
+\]
+\[
+\KV=M+\sqrt{2F\kappa^V}.
+\]
+\end{column}
+\begin{column}{.46\textwidth}
+\textbf{Etapa de ejecución}\par\vspace{2mm}
+El municipio observa $\kappa^A>0$ antes de elegir $e^*$.
+\[
+e^*=\sqrt{\frac{2F}{\kappa^A}},\qquad
+T^*=\frac{1}{e^*},
+\]
+\[
+\KA=M+\sqrt{2F\kappa^A}.
+\]
+\end{column}
+\end{columns}
+\lead{\textbf{A5.} El alcance, la calidad, $M$ y $F$ permanecen iguales entre etapas.}
+\notefoot{$e^V$ es la intensidad prevista. $e^*$ es la intensidad efectivamente elegida para ejecutar.}
 \end{frame}
 
-\begin{frame}{7 \textperiodcentered{} Where I did not believe the AI}
-  \textbf{Replace.} One claim of the model, your verdict with its reason, and
-  the hand derivation on screen.
+\begin{frame}{Candidato óptimo}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{.43\textwidth}
+\[
+K_e(e;\kappa)=-\frac{F}{e^2}+\frac{\kappa}{2}.
+\]
+La condición de primer orden exige
+\[
+-\frac{F}{e^2}+\frac{\kappa}{2}=0,
+\]
+\[
+e^2=\frac{2F}{\kappa}.
+\]
+Como $e>0$,
+\[
+\boxed{e^*=\sqrt{\frac{2F}{\kappa}}}.
+\]
+Además, $K_{ee}=2F/e^3>0$.
+\end{column}
+\begin{column}{.54\textwidth}
+\includegraphics[width=\linewidth]{figures/cost_intensity.pdf}
+\end{column}
+\end{columns}
+\notefoot{La condición de segundo orden caracteriza un mínimo local. La siguiente prueba establece globalidad y unicidad.}
 \end{frame}
 
-\begin{frame}{8 \textperiodcentered{} What I want from you}
-  \textbf{Replace.} The two or three questions on which you want the class's
-  critique before writing the final version.
+\begin{frame}{Prueba del mínimo global y único}
+Defina
+\[
+q=\sqrt{\frac{2F}{\kappa}}>0,
+\qquad F=\frac{\kappa q^2}{2}.
+\]
+Para cualquier $e>0$,
+\[
+\begin{aligned}
+K(e;\kappa)-K(q;\kappa)
+&=\frac{F}{e}+\frac{\kappa e}{2}
+-\frac{F}{q}-\frac{\kappa q}{2}\\[1mm]
+&=\frac{\kappa}{2e}\left(e-q\right)^2.
+\end{aligned}
+\]
+Como $\kappa>0$, $e>0$ y $(e-q)^2\geq0$,
+\[
+K(e;\kappa)\geq K(q;\kappa),
+\]
+con igualdad sólo cuando $e=q$.
+\lead{$q=e^*$ existe y es el único mínimo global.}
+\end{frame}
+
+\begin{frame}{Proposición 1: intensidad, duración y costo}
+\textbf{Bajo A1--A4, $F>0$, $M\geq0$ y $\kappa(p,C)>0$:}
+\[
+e^*=\sqrt{\frac{2F}{\kappa}},\qquad
+T^*=\sqrt{\frac{\kappa}{2F}},\qquad
+K^*=M+\sqrt{2F\kappa}.
+\]
+\[
+e^*_{\kappa}=-\frac{\sqrt{2F}}{2\kappa^{3/2}}<0,
+\quad
+T^*_{\kappa}=\frac{1}{2\sqrt{2F\kappa}}>0,
+\quad
+K^*_{\kappa}=\sqrt{\frac{F}{2\kappa}}>0.
+\]
+\centering
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{lccc}
+\toprule
+Cambio supuesto & $e^*$ & $T^*$ & $K^*$\\
+\midrule
+$p\uparrow$, si $\kappa_p>0$ & $\downarrow$ & $\uparrow$ & $\uparrow$\\
+$C\uparrow$, si $\kappa_C<0$ & $\uparrow$ & $\downarrow$ & $\downarrow$\\
+\bottomrule
+\end{tabular}
+\notefoot{Los signos de pobreza y capacidad se obtienen por regla de la cadena y dependen de A4.}
+\end{frame}
+
+\begin{frame}{Simulación de la Proposición 1}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{.60\textwidth}
+\includegraphics[width=\linewidth]{figures/speed_duration.pdf}
+\end{column}
+\begin{column}{.36\textwidth}
+\textbf{Verifica}
+\begin{itemize}
+  \item $e^*/e_0$ cae con $\kappa^A/\bar\kappa$.
+  \item $T^*/T_0$ aumenta.
+  \item Los valores coinciden con la solución analítica.
+\end{itemize}
+\vspace{2mm}
+\textbf{No demuestra}
+\begin{itemize}
+  \item que $\kappa_p>0$,
+  \item causalidad,
+  \item magnitudes para el Perú.
+\end{itemize}
+\end{column}
+\end{columns}
+\notefoot{Rango ilustrativo: $\kappa^A/\bar\kappa\in[0.5,1.5]$. No hay calibración empírica.}
+\end{frame}
+
+\begin{frame}{Proposición 2: condición exacta de sobrecosto}
+\textbf{Bajo A1--A5, $M\geq0$, $F>0$, $\kappa^A>0$ y $\kappa^V>0$:}
+\[
+R=\log\left(\frac{\KA}{\KV}\right)
+=\log\left(
+\frac{M+\sqrt{2F\kappa^A}}
+{M+\sqrt{2F\kappa^V}}
+\right).
+\]
+\[
+\boxed{
+\begin{aligned}
+R>0&\iff\kappa^A>\kappa^V,\\
+R=0&\iff\kappa^A=\kappa^V,\\
+R<0&\iff\kappa^A<\kappa^V.
+\end{aligned}}
+\]
+\lead{Una obra puede ser lenta y costosa, pero ajustarse al presupuesto si la previsión incorporó toda su dificultad.}
+\notefoot{Si $\kappa^V$ permanece fija y $\kappa_p^A>0$, entonces $R_p>0$. Si ambas fricciones cambian, el signo requiere supuestos adicionales.}
+\end{frame}
+
+\begin{frame}{Prueba de la condición de sobrecosto}
+Como $\KV>0$ y el logaritmo es estrictamente creciente,
+\[
+\begin{aligned}
+R>0
+&\iff \log(\KA/\KV)>0\\
+&\iff \frac{\KA}{\KV}>1\\
+&\iff \KA>\KV.
+\end{aligned}
+\]
+El costo optimizado aumenta estrictamente con la fricción:
+\[
+K^*(\kappa)=M+\sqrt{2F\kappa},
+\qquad
+\frac{\partial K^*}{\partial\kappa}
+=\sqrt{\frac{F}{2\kappa}}>0.
+\]
+Por tanto,
+\[
+\KA>\KV\iff\kappa^A>\kappa^V.
+\]
+\medskip\textbf{Conclusión:} el sobrecosto depende de la brecha respecto de lo anticipado.
+\end{frame}
+
+\begin{frame}{Extensión: anticipación parcial}
+\[
+\kappa^V(\lambda)
+=\lambda\kappa^A+(1-\lambda)\bar\kappa,
+\qquad \lambda\in[0,1].
+\]
+\begin{itemize}\setlength{\itemsep}{3mm}
+  \item $\lambda=0$: el presupuesto usa una fricción genérica $\bar\kappa$.
+  \item $0<\lambda<1$: el presupuesto incorpora parcialmente las condiciones locales.
+  \item $\lambda=1$: anticipación completa, $\kappa^V=\kappa^A$ y $R=0$.
+\end{itemize}
+\[
+R_{\lambda}
+=-\frac{\sqrt{F/(2\kappa^V)}}{K^V}
+\left(\kappa^A-\bar\kappa\right).
+\]
+\lead{Si $\kappa^A>\bar\kappa$, mayor anticipación reduce $R$. La intensidad realizada sigue dependiendo de $\kappa^A$.}
+\notefoot{$\lambda$ es exógeno. No representa expectativas racionales ni una decisión óptima de información.}
+\end{frame}
+
+\begin{frame}{Simulación de la anticipación}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{.60\textwidth}
+\includegraphics[width=\linewidth]{figures/overrun.pdf}
+\end{column}
+\begin{column}{.36\textwidth}
+\textbf{Verifica}
+\begin{itemize}
+  \item el signo de $R$ a ambos lados de $\kappa^A=\bar\kappa$,
+  \item la convergencia a cero cuando $\lambda\to1$,
+  \item los casos $R<0$, $R=0$ y $R>0$.
+\end{itemize}
+\vspace{2mm}
+\textbf{No identifica}
+\begin{itemize}
+  \item por qué el presupuesto falla,
+  \item el valor empírico de $\lambda$.
+\end{itemize}
+\end{column}
+\end{columns}
+\notefoot{Escenario ilustrativo: $M=10$, $F=2$, $\bar\kappa=1$. $R$ se mide en logaritmos.}
+\end{frame}
+
+\begin{frame}{Verificación analítica y computacional}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.46\textwidth}
+\textbf{SymPy comprueba exactamente}
+\begin{itemize}\setlength{\itemsep}{1mm}
+  \item la condición de primer orden en $e^*$,
+  \item la identidad del mínimo global,
+  \item las derivadas respecto de $\kappa$,
+  \item que $K^*_{\kappa}>0$.
+\end{itemize}
+\end{column}
+\begin{column}{.48\textwidth}
+\textbf{La verificación numérica comprueba en 3,000 escenarios positivos}
+\begin{itemize}\setlength{\itemsep}{1mm}
+  \item $K(e;\kappa)\geq K(e^*;\kappa)$,
+  \item las comparativas estáticas,
+  \item los tres signos de $R$ y el efecto de $\lambda$,
+  \item la reproducción exacta de las figuras.
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{4mm}
+\begin{block}{}
+El código detecta errores algebraicos y de implementación. No reemplaza la prueba ni aporta evidencia causal.
+\end{block}
+\notefoot{Punto de entrada reproducible: \texttt{python code/verify.py}.}
+\end{frame}
+
+\begin{frame}{Verificación crítica de la identidad}
+\textbf{Afirmación revisada}\par\smallskip
+La IA propuso que la condición $K_{ee}>0$ bastaba para cerrar el resultado. La revisión exigió además una prueba directa de globalidad y unicidad.
+\[
+\begin{aligned}
+K(e)-K(q)
+&=\frac{\kappa q^2}{2e}+\frac{\kappa e}{2}-\kappa q\\
+&=\frac{\kappa}{2e}\left(q^2+e^2-2eq\right)\\
+&=\frac{\kappa}{2e}(e-q)^2.
+\end{aligned}
+\]
+\begin{block}{Veredicto}
+La fórmula propuesta era correcta. La primera justificación estaba incompleta porque sólo establecía un mínimo local. La identidad cierra existencia, globalidad y unicidad en $e>0$.
+\end{block}
+\notefoot{La verificación usa $q^2=2F/\kappa$ y $K(q)=M+\kappa q$.}
+\end{frame}
+
+\begin{frame}{Medidas de la tesis y límites del modelo}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{p{.31\textwidth}p{.61\textwidth}}
+\toprule
+\textbf{Objeto del modelo} & \textbf{Medida del anexo empírico}\\
+\midrule
+$e^*=1/T^*$ & Avance financiero dividido por años desde el primer devengado.\\
+$R=\log(\KA/\KV)$ & Logaritmo del costo actualizado sobre el monto viable.\\
+\bottomrule
+\end{tabular}
+\vspace{4mm}
+\begin{itemize}\setlength{\itemsep}{2.5mm}
+  \item La equivalencia de velocidad exige gasto proporcional al progreso y fechas físicas y financieras alineadas.
+  \item El costo actualizado puede incluir cambios de alcance y puede no ser el costo final.
+  \item El modelo fija alcance, usa intensidad constante y omite una restricción presupuestaria explícita.
+  \item Los proyectos en ejecución requieren tratamiento de la censura.
+\end{itemize}
+\notefoot{Las predicciones cualitativas necesitan validación antes de trasladarse a registros administrativos.}
+\end{frame}
+
+\begin{frame}{Estado de la prueba y trabajo abierto}
+\textbf{Cerrado para esta presentación}
+\begin{itemize}\setlength{\itemsep}{2mm}
+  \item Proposición 1 con mínimo global, unicidad y comparativas estáticas.
+  \item Proposición 2 con los casos positivo, nulo y negativo.
+  \item Extensión de anticipación parcial y verificaciones simbólicas y numéricas.
+\end{itemize}
+\vspace{3mm}
+\textbf{Abierto para el trabajo final}
+\begin{itemize}\setlength{\itemsep}{2mm}
+  \item Contrastar el signo de $\kappa_p$ con datos.
+  \item Separar avance físico, avance financiero y cambios de alcance.
+  \item Estudiar la decisión de ejecutar y una restricción presupuestaria explícita.
+\end{itemize}
+\lead{La parte matemática del mecanismo está cerrada. La interpretación empírica sigue siendo condicional.}
+\end{frame}
+
+\begin{frame}{Conclusión y preguntas para la discusión}
+\textbf{Conclusión}\par\smallskip
+Una mayor fricción reduce la intensidad óptima y eleva duración y costo. La fricción produce sobrecosto sólo cuando supera la prevista.
+
+\vspace{5mm}
+\textbf{Preguntas para la clase}
+\begin{enumerate}\setlength{\itemsep}{3mm}
+  \item ¿Qué variable administrativa podría aproximar mejor la fricción $\kappa$ sin confundirla con el resultado de ejecución?
+  \item ¿Conviene mantener alcance y calidad fijos o modelar primero los cambios de expediente que alteran el costo actualizado?
+  \item ¿La siguiente extensión debería endogenizar la decisión de ejecutar o la calidad de la previsión presupuestaria?
+\end{enumerate}
+\notefoot{La crítica buscada se concentra en medición, alcance y siguiente extensión del modelo.}
+\end{frame}
+
+\appendix
+\begin{frame}{Referencias consultadas (1/2)}
+\small
+\begin{itemize}\setlength{\itemsep}{3mm}
+  \item Bolo Añorga, C. A. y Roque Tinta, I. M. (2026). \emph{Pobreza y desempeño en la inversión pública en el Perú}. Plan de tesis, 27/09.
+  \item Loayza, N. V., Rigolini, J. y Calvo-González, O. (2014). More than you can handle: Decentralization and spending ability of Peruvian municipalities. \emph{Economics \& Politics, 26}(1), 56--78. \href{https://doi.org/10.1111/ecpo.12026}{DOI}.
+  \item Presbitero, A. F. (2016). Too much and too fast? Public investment scaling-up and absorptive capacity. \emph{Journal of Development Economics, 120}, 17--31. \href{https://doi.org/10.1016/j.jdeveco.2015.12.005}{DOI}.
+  \item Gurara, D., Kpodar, K., Presbitero, A. F. y Tessema, D. (2020). \emph{On the Capacity to Absorb Public Investment: How Much is Too Much?} FMI WP/20/48.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Referencias consultadas (2/2)}
+\small
+\begin{itemize}\setlength{\itemsep}{3mm}
+  \item Gambina, D. y Mazzola, F. (2025). The Determinants of the Implementation Speed of Cohesion Projects in Europe: A Regional and Project-level Analysis. \emph{Open Economies Review}. \href{https://doi.org/10.1007/s11079-025-09819-3}{DOI}.
+  \item Espinoza, R. y Presbitero, A. F. (2022). Delays in public investment projects. \emph{International Economics, 172}, 297--310. \href{https://doi.org/10.1016/j.inteco.2021.10.002}{DOI}.
+  \item Mohammadi Atashgah, K. et al. (2022). Developing a model for time-cost trade-off optimization problem considering overdraft issue in uncertain environments. \emph{Journal of Industrial and Systems Engineering, 14}(3), 259--279.
+  \item Flyvbjerg, B., Holm, M. K. S. y Buhl, S. L. (2002). Underestimating costs in public works projects: Error or lie? \emph{Journal of the American Planning Association, 68}(3), 279--295. \href{https://doi.org/10.1080/01944360208976273}{DOI}.
+\end{itemize}
 \end{frame}
 
 \end{document}
