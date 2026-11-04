@@ -1,9 +1,10 @@
-"""Reproduce las figuras ilustrativas y verifica los resultados numéricos.
+"""Reproduce las figuras ilustrativas y verifica resultados simbólicos y numéricos.
 Ejecutar desde cualquier carpeta: python code/verify.py
-No calibra ni estima datos del Perú. No reemplaza la prueba ni Lean.
+No calibra ni estima datos del Perú. No reemplaza la prueba matemática.
 """
 from pathlib import Path
 import numpy as np
+import sympy as sp
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -22,6 +23,40 @@ def cost(e, k, m=M, f=F): return m+f/e+k*e/2
 def value(k, m=M, f=F): return m+np.sqrt(2*f*k)
 def overrun(k, lam, kb=KB, m=M, f=F):
     return np.log(value(k,m,f)/value(lam*k+(1-lam)*kb,m,f))
+
+# Verificación simbólica exacta. Los signos requieren las condiciones
+# de positividad y la regla de la cadena expuestas en las proposiciones.
+es, fs, ks = sp.symbols('e F kappa', positive=True)
+ms = sp.symbols('M', nonnegative=True)
+kas, kbs, lam = sp.symbols('kappa_A kappa_bar lambda', positive=True)
+cost_sym = ms + fs/es + ks*es/2
+q_sym = sp.sqrt(2*fs/ks)
+assert sp.simplify(sp.diff(cost_sym,es).subs(es,q_sym)) == 0
+assert sp.simplify(sp.diff(cost_sym,es,2)-2*fs/es**3) == 0
+assert sp.simplify(cost_sym-cost_sym.subs(es,q_sym)
+                   -ks*(es-q_sym)**2/(2*es)) == 0
+e_sym = q_sym
+t_sym = 1/q_sym
+k_sym = cost_sym.subs(es,q_sym)
+assert sp.simplify(sp.diff(e_sym,ks)
+                   +sp.sqrt(2*fs)/(2*ks**sp.Rational(3,2))) == 0
+assert sp.simplify(sp.diff(t_sym,ks)
+                   -1/(2*sp.sqrt(2*fs*ks))) == 0
+assert sp.simplify(sp.diff(k_sym,ks)
+                   -sp.sqrt(fs/(2*ks))) == 0
+kv_sym = lam*kas+(1-lam)*kbs
+kv_positive = sp.symbols('kappa_V', positive=True)
+v_positive = ms+sp.sqrt(2*fs*kv_positive)
+a_sym = ms+sp.sqrt(2*fs*kas)
+r_positive = sp.log(a_sym/v_positive)
+r_sym = r_positive.subs(kv_positive,kv_sym)
+assert sp.simplify(r_sym.subs(lam,1)) == 0
+# dR/dlambda = (dR/dkappa_V)(kappa_A-kappa_bar), con kappa_V>0
+assert sp.simplify(sp.diff(r_positive,kv_positive)
+                   +sp.sqrt(fs/(2*kv_positive))/v_positive) == 0
+assert sp.simplify(sp.diff(r_sym,lam)
+                   -sp.diff(r_positive,kv_positive).subs(kv_positive,kv_sym)
+                    *(kas-kbs)) == 0
 
 # Mínimo global, FOC y unicidad por la identidad exacta, en una malla amplia.
 rng = np.random.default_rng(261014)
@@ -87,4 +122,4 @@ ax.legend(frameon=False,loc='lower right')
 ax.annotate('Costo superior al previsto',xy=(1.32,.025),xytext=(1.07,.032),fontsize=10)
 ax.annotate('Costo inferior al previsto',xy=(.7,-.026),xytext=(.52,-.045),fontsize=10)
 fig.savefig(FIG/'overrun.pdf');plt.close(fig)
-print('OK: FOC, mínimo global, orden de resultados, derivadas y anticipación. Figuras reproducidas.')
+print('OK: identidades y derivadas simbólicas; 3000 casos numéricos; figuras reproducidas.')

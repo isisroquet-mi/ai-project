@@ -750,6 +750,7 @@ Mohammadi Atashgah, K., Ghousi, R., Monir Abbasi, A. y Tayefi Nasrabadi, A. (202
 
 ```
 
+
 ## Salidas de esta sesión: diapositivas (LaTeX en bruto)
 
 ```latex
@@ -1105,3 +1106,9 @@ Presbitero (2016) encuentra que proyectos iniciados durante expansiones de inver
 
 \textbf{Contribución propuesta.} En los planteamientos examinados no se identificó exactamente la combinación de $\kappa(p,C)$, intensidad óptima y comparación $\kappa^A$--$\kappa^V$ de este modelo. El aporte propuesto es integrarlos en un mecanismo transparente: una fricción alta eleva duración y costo; el sobrecosto exige que supere la anticipada. La regla exógena $\lambda$ permite separar mejora de ejecución y mejora de previsión. Se trata de una síntesis y adaptación por evaluar, no de un primer modelo general de tiempo--costo. La revisión tampoco identifica causalmente $\kappa_p>0$ ni calibra la función cuadrática. Como continuación, se contrastará esta formulación con modelos de contratos y cambios de diseño citados por Gurara et al.
 ```
+
+## Presentación final (4 de noviembre de 2026)
+
+Solicitud de la autora: «necesito que en mi repositorio me ayudes a hacer estos cambios para mi presentación [...], no hagas lo de lean [...] sigue las indicaciones [...] detallar algunos pasos [...] para que se pueda entender la demostración [...] usa mi repositorio de github». Pregunta posterior: «qué mejoras propones respecto a lo que se espera en las indicaciones». Referencias aportadas: `Indicaciones(2).pdf` y `final.pdf`.
+
+Se sustituyó la plantilla de `slides/final.tex` por una presentación de 24 láminas. Se explicitan A1--A5, la integración del costo por periodo, la condición de primer orden y la identidad de diferencia de costos que prueba mínimo global y unicidad; se muestran regla de la cadena, signos condicionales, los tres casos de variación de costos y la extensión de anticipación parcial. Se separan demostración, simulación y contraste empírico; se revisa críticamente una respuesta de IA. Por indicación de la autora, la presentación omite Lean. `code/verify.py` comprueba simbólicamente las identidades con SymPy y ejecuta 3000 casos numéricos, además de reproducir las figuras. Se compiló y revisó visualmente `slides/final.pdf`.
