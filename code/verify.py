@@ -48,6 +48,8 @@ kv_sym = lam*kas+(1-lam)*kbs
 kv_positive = sp.symbols('kappa_V', positive=True)
 v_positive = ms+sp.sqrt(2*fs*kv_positive)
 a_sym = ms+sp.sqrt(2*fs*kas)
+assert sp.simplify(a_sym-v_positive-sp.sqrt(2*fs)
+                   *(sp.sqrt(kas)-sp.sqrt(kv_positive))) == 0
 r_positive = sp.log(a_sym/v_positive)
 r_sym = r_positive.subs(kv_positive,kv_sym)
 assert sp.simplify(r_sym.subs(lam,1)) == 0
@@ -72,6 +74,12 @@ k2=k*1.1
 assert np.all(opt(k2,f)<q)
 assert np.all(1/opt(k2,f)>1/q)
 assert np.all(value(k2,m,f)>value(k,m,f))
+# La nueva forma escrita de la prueba de los tres signos.
+ka = k*np.exp(rng.uniform(-2,2,3000))
+delta = value(ka,m,f)-value(k,m,f)
+assert np.allclose(delta,np.sqrt(2*f)*(np.sqrt(ka)-np.sqrt(k)))
+assert np.array_equal(np.sign(np.log(value(ka,m,f)/value(k,m,f))),
+                      np.sign(ka-k))
 # Comparativas estáticas y punto de equilibrio del sobrecosto.
 ratios=np.linspace(.5,1.5,301)
 for lam in (0,.5,1):
@@ -106,10 +114,19 @@ ax.legend(frameon=False,loc='upper right')
 fig.savefig(FIG/'cost_intensity.pdf'); plt.close(fig)
 
 fig,ax=plt.subplots(figsize=(9,3.9),layout='constrained')
+ax.axvspan(.5,1,color=TEAL,alpha=.035,zorder=0)
+ax.axvspan(1,1.5,color=GOLD,alpha=.035,zorder=0)
 ax.plot(ratios,ratios**(-.5),color=TEAL,lw=2.7,label=r'Intensidad $e^*/e_0$')
 ax.plot(ratios,ratios**(.5),color=NAVY,lw=2.7,label=r'Duración $T^*/T_0$')
 ax.axhline(1,color='#8090A0',lw=1,ls=':'); ax.axvline(1,color='#8090A0',lw=1,ls=':')
-ax.set(xlabel=r'Fricción relativa $\kappa^A/\bar\kappa$',ylabel='Razón respecto de la línea base',xlim=(.5,1.5),ylim=(.65,1.5))
+for x in (.5,1,1.5):
+    ax.scatter([x],[x**(-.5)],s=35,color=TEAL,zorder=5)
+    ax.scatter([x],[x**(.5)],s=35,color=NAVY,zorder=5)
+for function,color in ((lambda x:x**(-.5),TEAL),(lambda x:x**(.5),NAVY)):
+    ax.annotate('',xy=(1.34,function(1.34)),xytext=(1.16,function(1.16)),
+                arrowprops=dict(arrowstyle='-|>',color=color,lw=2.4,mutation_scale=17))
+ax.set(xlabel=r'Fricción relativa $\kappa/\bar\kappa$',ylabel='Razón frente a la referencia',xlim=(.48,1.52),ylim=(.65,1.5))
+ax.set_xticks([.5,.75,1,1.25,1.5])
 ax.legend(frameon=False,loc='upper right')
 fig.savefig(FIG/'speed_duration.pdf');plt.close(fig)
 

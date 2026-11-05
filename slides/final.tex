@@ -8,6 +8,8 @@
 \definecolor{blue}{HTML}{23659A}
 \definecolor{teal}{HTML}{168F8A}
 \definecolor{pale}{HTML}{EAF2F8}
+\definecolor{lowbg}{HTML}{E7F6F3}
+\definecolor{highbg}{HTML}{FFF1DF}
 \usetheme{default}
 \setbeamercolor{normal text}{fg=navy,bg=white}
 \setbeamercolor{structure}{fg=teal}
@@ -39,14 +41,14 @@ $\kappa\uparrow\Rightarrow e^*\downarrow,\ T^*\uparrow,\ K^*\uparrow,
 \end{frame}
 
 \begin{frame}{Pregunta y respuesta del modelo}
-\textbf{Pregunta de la tesis.} ¿Cómo se relaciona la pobreza distrital con la velocidad de ejecución y la variación de costos de proyectos locales en el Perú?
+\textbf{Pregunta de investigación que motiva este modelo.} ¿Cómo se relaciona la pobreza distrital con la velocidad de ejecución y la variación de costos de proyectos locales en el Perú?
 \medskip
 
 \textbf{Pregunta teórica.} ¿Cómo cambia la intensidad elegida cuando ejecutar resulta más difícil? ¿Cuándo aparece un sobrecosto respecto de lo previsto?
 \begin{block}{Respuesta condicional}
 Una fricción alta eleva el costo óptimo. La variación positiva frente al presupuesto requiere que la fricción realizada sea mayor que la prevista.
 \end{block}
-\nota{La relación causal entre pobreza y fricción exige evidencia empírica.}
+\nota{La primera pregunta motiva el trabajo; el modelo responde la segunda bajo sus supuestos.}
 \end{frame}
 
 \begin{frame}{Agente, decisión y alcance}
@@ -110,22 +112,25 @@ La fricción modifica la decisión y sus resultados:
 \[\kappa\longmapsto(e^*,T^*,K^*).\]
 \end{block}
 \end{columns}
-\nota{El signo $\kappa_p>0$ es un supuesto. Se mantienen fijos $M$, $F$ y los demás factores.}
+\nota{Mecanismo: personal y coordinación facilitan acelerar; necesidades y restricciones locales pueden encarecerlo. Loayza et al. (2014); Gurara et al. (2020). Los signos de A4 son supuestos.}
 \end{frame}
 
 \begin{frame}{Previsión ex ante y ejecución}
+\small
+Antes de ejecutar se estima el costo con información incompleta. Al iniciar la ejecución se conoce la fricción efectiva y se elige la intensidad una sola vez.
+\smallskip
 \begin{columns}[T]
 \column{.47\linewidth}
-\textbf{Previsión presupuestaria}\par
-Se usa una fricción prevista $\kappa^V>0$:
+\textbf{Previsión (antes de ejecutar)}\par
+Con la fricción estimada $\kappa^V>0$ se proyecta:
 \begin{align*}
 e^V&=\sqrt{2F/\kappa^V},\\
 T^V&=1/e^V,\\
 K^V&=M+\sqrt{2F\kappa^V}.
 \end{align*}
 \column{.47\linewidth}
-\textbf{Ejecución}\par
-Se observa $\kappa^A>0$ antes de elegir $e^A$:
+\textbf{Decisión (al iniciar)}\par
+Con $\kappa^A>0$ se elige $e^A$ y resulta:
 \begin{align*}
 e^A&=\sqrt{2F/\kappa^A},\\
 T^A&=1/e^A,\\
@@ -133,7 +138,7 @@ K^A&=M+\sqrt{2F\kappa^A}.
 \end{align*}
 \end{columns}
 \begin{block}{A5. Comparabilidad entre etapas}
-Alcance, calidad, $M$ y $F$ son iguales. $e^V$ es una previsión y $e^A$ es la intensidad efectivamente elegida.
+Mismo proyecto, alcance, calidad, $M$ y $F$. $e^V$ es una proyección, no una decisión previa; $e^A$ se mantiene durante la obra.
 \end{block}
 \end{frame}
 
@@ -213,20 +218,20 @@ $e_C^*>0$, $T_C^*<0$, $K_C^*<0$.
 \nota{Ejemplo: $e_p^*=-\sqrt{2F}\,\kappa_p/(2\kappa^{3/2})<0$. Los signos dependen de A4 y no identifican causalidad empírica.}
 \end{frame}
 
-\begin{frame}{Simulación de la Proposición 1}
+\begin{frame}{Si cambia la fricción: intensidad y duración}
 \begin{columns}[T]
-\column{.62\linewidth}
+\column{.58\linewidth}
 \includegraphics[width=\linewidth]{figures/speed_duration.pdf}
-\column{.34\linewidth}
-\textbf{Comprueba en el rango mostrado}\par
-$e^*/e_0=(\kappa^A/\bar\kappa)^{-1/2}$ cae y
-$T^*/T_0=(\kappa^A/\bar\kappa)^{1/2}$ sube.
-\medskip
-
-\textbf{No establece}\par
-$\kappa_p>0$, causalidad ni magnitudes para el Perú.
+\column{.38\linewidth}
+\footnotesize\textbf{Tres escenarios para el mismo proyecto}\par\smallskip
+\colorbox{lowbg}{\parbox{.93\linewidth}{\textbf{$0{,}5$: fricción menor}\par
+$e^*/e_0\approx1{,}41$ $\uparrow$ 41\%; $T^*/T_0\approx0{,}71$ $\downarrow$ 29\%.}}\par\smallskip
+\colorbox{pale}{\parbox{.93\linewidth}{\textbf{$1$: referencia}\par
+$\kappa=\bar\kappa$, $e^*=e_0$, $T^*=T_0$; cada razón vale 1.}}\par\smallskip
+\colorbox{highbg}{\parbox{.93\linewidth}{\textbf{$1{,}5$: fricción mayor}\par
+$e^*/e_0\approx0{,}82$ $\downarrow$ 18\%; $T^*/T_0\approx1{,}22$ $\uparrow$ 22\%.}}
 \end{columns}
-\nota{Ejercicio ilustrativo: $\kappa^A/\bar\kappa\in[0.5,1.5]$. Curvas calculadas con la solución analítica.}
+\nota{Referencia hipotética $\bar\kappa=1$, distinta de la previsión $\kappa^V$. Aquí varía $\kappa$; la comparación previsto--efectivo aparece en la Proposición 2.}
 \end{frame}
 
 \begin{frame}{Proposición 2: condición exacta de sobrecosto}
@@ -235,31 +240,35 @@ Con A1--A5, $M\ge0$, $F>0$, $\kappa^A,\kappa^V>0$ y el mismo proyecto:
 R=\log\!\left(\frac{K^A}{K^V}\right)
 =\log\!\left(\frac{M+\sqrt{2F\kappa^A}}{M+\sqrt{2F\kappa^V}}\right).
 \]
-\[
-\boxed{R>0\iff\kappa^A>\kappa^V,\quad
-R=0\iff\kappa^A=\kappa^V,\quad
-R<0\iff\kappa^A<\kappa^V.}
-\]
+\begin{center}\small
+\begin{tabular}{ccc}\toprule
+Fricción efectiva & Costo efectivo & Variación \\\midrule
+$\kappa^A>\kappa^V$ & $K^A>K^V$ & $R>0$: sobrecosto \\
+$\kappa^A=\kappa^V$ & $K^A=K^V$ & $R=0$: sin variación \\
+$\kappa^A<\kappa^V$ & $K^A<K^V$ & $R<0$: menor costo \\\bottomrule
+\end{tabular}
+\end{center}
 \begin{block}{Interpretación}
-Una obra puede ser lenta y costosa y aun ajustarse al presupuesto si su dificultad se anticipó completamente.
+Incluso una obra costosa se ajusta a lo previsto si su fricción se anticipó.
 \end{block}
 \nota{$\kappa_p^A>0$ sólo implica $R_p>0$ cuando $\kappa^V$ permanece fija.}
 \end{frame}
 
 \begin{frame}{Prueba: los tres signos de la variación de costos}
-Como $K^V>0$ y $\log$ es estrictamente creciente,
-\[R>0\iff \frac{K^A}{K^V}>1\iff K^A>K^V.\]
-El costo optimizado crece estrictamente con la fricción:
+\textbf{1. Restar los costos.} Con el mismo $M$ y $F$, el costo base se cancela:
 \[
-K^*(\kappa)=M+\sqrt{2F\kappa},\qquad
-\frac{\partial K^*}{\partial\kappa}=\sqrt{\frac{F}{2\kappa}}>0.
+K^A-K^V=\bigl(M+\sqrt{2F\kappa^A}\bigr)-\bigl(M+\sqrt{2F\kappa^V}\bigr)
+=\sqrt{2F}\,\bigl(\sqrt{\kappa^A}-\sqrt{\kappa^V}\bigr).
 \]
-Por tanto, $K^A>K^V\iff\kappa^A>\kappa^V$. La misma monotonía preserva igualdad y orden inverso:
+\textbf{2. Determinar el signo.} $F>0$ y la raíz cuadrada es estrictamente creciente. Por tanto, $K^A-K^V$ y $\kappa^A-\kappa^V$ tienen el mismo signo.
+\medskip
+
+\textbf{3. Conectar con $R$.} Como $K^A,K^V>0$, el logaritmo creciente y $\log 1=0$ implican que $R=\log(K^A/K^V)$ y $K^A-K^V$ tienen el mismo signo.
 \[
-R=0\iff\kappa^A=\kappa^V,\qquad
-R<0\iff\kappa^A<\kappa^V.
+\boxed{\operatorname{sgn}(R)=\operatorname{sgn}(K^A-K^V)
+=\operatorname{sgn}(\kappa^A-\kappa^V).}
 \]
-\nota{El sobrecosto depende de una brecha respecto de lo anticipado.}
+\nota{La tabla anterior enuncia los tres casos; aquí se demuestra por qué valen.}
 \end{frame}
 
 \begin{frame}{Extensión: anticipación parcial}
@@ -296,7 +305,7 @@ Cuando $\lambda$ se acerca a 1, $R$ converge a cero desde arriba o desde abajo. 
 \nota{Se distingue el costo de ejecutar de la precisión del presupuesto.}
 \end{frame}
 
-\begin{frame}{Simulación de la anticipación}
+\begin{frame}{Variación de costos según fricción y anticipación}
 \begin{columns}[T]
 \column{.62\linewidth}
 \includegraphics[width=\linewidth]{figures/overrun.pdf}
