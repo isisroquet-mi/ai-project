@@ -297,12 +297,13 @@ Se resta el cambio proporcional previsto del cambio proporcional efectivo.
 \nota{Fragmento manuscrito; hoja completa en \texttt{hand/01-derivacion-manual-Rp.pdf}.}
 \end{frame}
 
-\begin{frame}{Veredicto manual: el signo de $R_p$}
+\begin{frame}{Verificación crítica de IA: signo de $R_p$}
 \begin{columns}[T]
 \column{.56\linewidth}
 \includegraphics[width=\linewidth,trim=20 244 80 590,clip]{../hand/01-derivacion-manual-Rp.pdf}
 \column{.40\linewidth}
 \small
+\textbf{Pregunta:} ¿$K_p^A>0$ basta para afirmar que $R_p>0$?
 \[
 R_p>0\iff
 \frac{\kappa_p^A}{\sqrt{\kappa^A}\,K^A}
@@ -314,7 +315,7 @@ Si $\kappa_p^V=0$ y $\kappa_p^A>0$, entonces $R_p>0$.
 \end{block}
 Si la previsión cambia con $p$, $\kappa_p^A>0$ por sí sola no determina el signo de $R_p$.
 \end{columns}
-\nota{El manuscrito muestra la comparativa de $R$ asociada a la Proposición 2; la hoja completa está en \texttt{hand/}.}
+\nota{La derivación manual cuestiona ese salto: el signo depende también del costo previsto.}
 \end{frame}
 
 \begin{frame}{Extensión: anticipación parcial}
@@ -410,24 +411,6 @@ theorem unique_global_minimum (M F κ : ℝ) (_hM : 0 ≤ M)
   ring
 \end{lstlisting}
 \nota{Verifica identidad, positividad y mínimo global único. Quedan por formalizar duración, costo, signos distritales y Proposición 2. Fuente: \texttt{lean/Proposition1.lean}.}
-\end{frame}
-
-\begin{frame}{Verificación crítica de una respuesta de IA}
-\textbf{Respuesta inicial.} La IA obtuvo $q=\sqrt{2F/\kappa}$ con la FOC. Era necesario verificar que el candidato resolviera el problema global.
-\medskip
-
-\textbf{Comprobación manual.} De $F=\kappa q^2/2$ y $K(q)=M+\kappa q$:
-\[
-\begin{aligned}
-K(e)-K(q)
-&=\frac{\kappa q^2}{2e}+\frac{\kappa e}{2}-\kappa q\\
-&=\frac{\kappa}{2e}(q^2+e^2-2eq)
-=\frac{\kappa}{2e}(e-q)^2.
-\end{aligned}
-\]
-\begin{block}{Veredicto}
-La fórmula del candidato es correcta. La diferencia de costos demuestra existencia, globalidad y unicidad para $e>0$.
-\end{block}
 \end{frame}
 
 \begin{frame}{Puente hacia las medidas de la tesis}

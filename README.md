@@ -21,7 +21,7 @@ Con igual alcance, calidad, M y F en viabilidad y ejecución, R = log(KA/KV) es 
 | Figuras y verificaciones | SymPy y 3000 casos numéricos comprobados con `code/verify.py`; figuras reproducibles |
 | Revisión de literatura | Diez PDF comparados; siete antecedentes centrales; seguimiento de contratos pendiente |
 | Prueba escrita y verificación simbólica | Derivación manuscrita de $R_p$ en `hand/`; otras pruebas escritas y SymPy en las diapositivas; falta trasladarlas al paper |
-| Diapositivas finales | `slides/final.tex` y `slides/final.pdf` (27 láminas) |
+| Diapositivas finales | `slides/final.tex` y `slides/final.pdf` (26 láminas) |
 | Lean y paper final | Mínimo global único de la Proposición 1 comprobado en Lean; resto de la formalización y paper final pendientes |
 | Actualización de la entrega | Archivos actualizados mediante rama y pull request |
 
