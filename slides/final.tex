@@ -276,6 +276,47 @@ K^A-K^V=\bigl(M+\sqrt{2F\kappa^A}\bigr)-\bigl(M+\sqrt{2F\kappa^V}\bigr)
 \nota{La tabla anterior enuncia los tres casos; aquí se demuestra por qué valen.}
 \end{frame}
 
+\begin{frame}{Derivación manual: cómo cambia $R$ con la pobreza}
+Con $M\ge0$ y $F>0$ fijos, y $\kappa^A(p),\kappa^V(p)>0$ diferenciables:
+\[
+R(p)=\log K^A(p)-\log K^V(p),\qquad
+\boxed{R_p=\frac{K_p^A}{K^A}-\frac{K_p^V}{K^V}}.
+\]
+\begin{columns}[T]
+\column{.57\linewidth}
+\includegraphics[width=\linewidth,trim=25 700 50 180,clip]{../hand/01-derivacion-manual-Rp.pdf}
+\column{.39\linewidth}
+\small\textbf{Regla de la cadena}\par\medskip
+Para $j\in\{A,V\}$:
+\[
+K_p^j=\frac{\sqrt{2F}}{2\sqrt{\kappa^j}}\,\kappa_p^j,
+\quad K^j=M+\sqrt{2F\kappa^j}.
+\]
+Se resta el cambio proporcional previsto del cambio proporcional efectivo.
+\end{columns}
+\nota{Fragmento manuscrito; hoja completa en \texttt{hand/01-derivacion-manual-Rp.pdf}.}
+\end{frame}
+
+\begin{frame}{Veredicto manual: el signo de $R_p$}
+\begin{columns}[T]
+\column{.56\linewidth}
+\includegraphics[width=\linewidth,trim=20 244 80 590,clip]{../hand/01-derivacion-manual-Rp.pdf}
+\column{.40\linewidth}
+\small
+\[
+R_p>0\iff
+\frac{\kappa_p^A}{\sqrt{\kappa^A}\,K^A}
+>
+\frac{\kappa_p^V}{\sqrt{\kappa^V}\,K^V}.
+\]
+\begin{block}{Conclusión}
+Si $\kappa_p^V=0$ y $\kappa_p^A>0$, entonces $R_p>0$.
+\end{block}
+Si la previsión cambia con $p$, $\kappa_p^A>0$ por sí sola no determina el signo de $R_p$.
+\end{columns}
+\nota{El manuscrito se titula «Proposición 1», pero aquí se comprueba la comparativa de $R$ asociada a la Proposición 2.}
+\end{frame}
+
 \begin{frame}{Extensión: anticipación parcial}
 \[
 \kappa^V(\lambda)=\lambda\kappa^A+(1-\lambda)\bar\kappa,
