@@ -20,8 +20,8 @@ Con igual alcance, calidad, M y F en viabilidad y ejecución, R = log(KA/KV) es 
 | Resultados analíticos | Proposiciones, condiciones, demostraciones y extensión expuestas en `slides/final.tex` |
 | Figuras y verificaciones | SymPy y 3000 casos numéricos comprobados con `code/verify.py`; figuras reproducibles |
 | Revisión de literatura | Diez PDF comparados; siete antecedentes centrales; seguimiento de contratos pendiente |
-| Prueba escrita y verificación simbólica | Desarrolladas para la presentación final; falta trasladarlas al paper |
-| Diapositivas finales | `slides/final.tex` y `slides/final.pdf` (25 láminas) |
+| Prueba escrita y verificación simbólica | Derivación manuscrita de $R_p$ en `hand/`; otras pruebas escritas y SymPy en las diapositivas; falta trasladarlas al paper |
+| Diapositivas finales | `slides/final.tex` y `slides/final.pdf` (27 láminas) |
 | Lean y paper final | Mínimo global único de la Proposición 1 comprobado en Lean; resto de la formalización y paper final pendientes |
 | Actualización de la entrega | Archivos actualizados mediante rama y pull request |
 
@@ -44,4 +44,4 @@ pdflatex -interaction=nonstopmode -halt-on-error final.tex
 
 Se incluyen las figuras PDF para compilar las diapositivas incluso antes de reproducirlas. Las fuentes requieren una distribución LaTeX con Beamer, Latin Modern, Babel, microtype y titlesec.
 
-**Archivos todavía en desarrollo:** `paper/` y `hand/` conservan ejemplos o instrucciones. `lean/Proposition1.lean` contiene una prueba compilada, pero todavía no es la contribución integral del paper a AppliedModelingLib.
+**Archivos todavía en desarrollo:** `paper/` conserva un ejemplo. `hand/` ya incluye una derivación original de $R_p$ y necesita completarse con las demás pruebas. `lean/Proposition1.lean` contiene una prueba compilada, pero todavía no es la contribución integral del paper a AppliedModelingLib.
