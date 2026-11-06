@@ -1116,3 +1116,17 @@ Se sustituyó la plantilla de `slides/final.tex` por una presentación de 24 lá
 ## Ajustes de la exposición final (5 de noviembre de 2026)
 
 La autora pidió distinguir la pregunta de investigación que motivó el modelo de la pregunta teórica, explicar por qué se formula una previsión antes de ejecutar y cuándo se elige la intensidad efectiva, motivar A4 con mecanismo económico y literatura, aclarar que la referencia de la primera simulación es hipotética (\bar\kappa=1) y no la previsión, representar tres escenarios con colores y flechas, y separar el enunciado de los tres signos de su demostración algebraica. Preguntó si había que volver a ejecutar SymPy: los cambios de rótulo no alteran el modelo, pero la figura y la nueva forma escrita de la identidad justifican repetir la verificación simbólica, numérica y la compilación. No se añadió Lean.
+
+## Formalización y comprobación manuscrita (5 de noviembre de 2026)
+
+**Prompt de la autora (literal):** «empieza lo de Lean porfa».
+
+**Respuesta relevante de la IA (literal):** «La primera prueba compiló sin `sorry`: verifica que $q=\sqrt{2F/\kappa}$ es positivo y el único mínimo global del costo para $e>0$. También añadí una diapositiva que muestra la declaración Lean y explica exactamente ese alcance en la presentación final». El alcance parcial se documentó en `lean/README.md` y en la lámina Lean.
+
+**Prompt de la autora (literal):** «este es la derivacion manual, subelo al repositorio ya sabes nada directo al main y tmb colocalo en la diapositiva final».
+
+**Respuesta relevante de la IA (literal):** «Subí tu derivación manuscrita sin modificarla y la incorporé en dos láminas de la presentación final». La autora corrigió después el encabezado del manuscrito; la versión corregida sustituyó a la anterior mediante un nuevo PR.
+
+**Prompt de la autora (literal):** «Ya he corregido esa parte que me dijiste. Eso lo puse a derivación manual, este, y modifica el PDF con eso, porfis. Luego quiero que me digas qué más me falta para la entrega. para esta entrega. Creo que nada, eso sería todo, ¿verdad?».
+
+**Verificación y veredicto:** Se reemplazó el PDF manuscrito por la versión corregida, se retiró la nota sobre su antiguo encabezado y se volvió a compilar la presentación. La revisión detectó que otra lámina atribuía a la autora una «comprobación manual» diferente; se retiró y se dejó la lámina crítica con la comprobación de $R_p$ que sí aparece en su hoja. Se inspeccionaron las láminas renderizadas y pasó la compilación del repositorio. La formalización Lean sigue siendo parcial y el paper final aún está pendiente.
