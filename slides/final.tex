@@ -4,6 +4,11 @@
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage{lmodern,microtype,amsmath,amssymb,booktabs,array,graphicx}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\scriptsize,columns=fullflexible,keepspaces=true,
+  literate={κ}{{$\kappa$}}1 {ℝ}{{$\mathbb R$}}1 {≤}{{$\le$}}1
+           {∧}{{$\wedge$}}1 {∀}{{$\forall$}}1 {→}{{$\to$}}1
+           {↔}{{$\leftrightarrow$}}1}
 \definecolor{navy}{HTML}{17324D}
 \definecolor{blue}{HTML}{23659A}
 \definecolor{teal}{HTML}{168F8A}
@@ -341,6 +346,29 @@ Por qué falla el presupuesto ni el valor empírico de $\lambda$.
 La prueba algebraica establece las proposiciones. El código detecta errores de derivación o implementación; no estima parámetros peruanos.
 \end{block}
 \nota{Punto de entrada: \texttt{python code/verify.py}.}
+\end{frame}
+
+\begin{frame}[fragile]{Lean: mínimo global y único}
+\textbf{En el documento:} «$q$ existe, alcanza el mínimo y es el único minimizador global en $e>0$», con $q=\sqrt{2F/\kappa}$, $M\ge0$, $F>0$ y $\kappa>0$.
+\begin{block}{Declaración correspondiente en Lean}
+\begin{lstlisting}
+theorem unique_global_minimum (M F κ : ℝ) (_hM : 0 ≤ M)
+    (hF : 0 < F) (hκ : 0 < κ) :
+    let q := Real.sqrt (2 * F / κ)
+    0 < q ∧ ∀ e : ℝ, 0 < e →
+      cost M F κ q ≤ cost M F κ e ∧
+      (cost M F κ e = cost M F κ q ↔ e = q) := by
+\end{lstlisting}
+\end{block}
+\vspace{-0.5em}
+\textbf{Paso clave de la prueba compilada:}
+\begin{lstlisting}
+  unfold cost
+  rw [hF]
+  field_simp
+  ring
+\end{lstlisting}
+\nota{Verifica identidad, positividad y mínimo global único. Quedan por formalizar duración, costo, signos distritales y Proposición 2. Fuente: \texttt{lean/Proposition1.lean}.}
 \end{frame}
 
 \begin{frame}{Verificación crítica de una respuesta de IA}

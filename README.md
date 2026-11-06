@@ -21,8 +21,8 @@ Con igual alcance, calidad, M y F en viabilidad y ejecución, R = log(KA/KV) es 
 | Figuras y verificaciones | SymPy y 3000 casos numéricos comprobados con `code/verify.py`; figuras reproducibles |
 | Revisión de literatura | Diez PDF comparados; siete antecedentes centrales; seguimiento de contratos pendiente |
 | Prueba escrita y verificación simbólica | Desarrolladas para la presentación final; falta trasladarlas al paper |
-| Diapositivas finales | `slides/final.tex` y `slides/final.pdf` (24 láminas) |
-| Lean y paper final | Pendientes; Lean se omite de esta presentación por indicación de la autora |
+| Diapositivas finales | `slides/final.tex` y `slides/final.pdf` (25 láminas) |
+| Lean y paper final | Mínimo global único de la Proposición 1 comprobado en Lean; resto de la formalización y paper final pendientes |
 | Actualización de la entrega | Archivos actualizados mediante rama y pull request |
 
 ## Reproducir
@@ -44,4 +44,4 @@ pdflatex -interaction=nonstopmode -halt-on-error final.tex
 
 Se incluyen las figuras PDF para compilar las diapositivas incluso antes de reproducirlas. Las fuentes requieren una distribución LaTeX con Beamer, Latin Modern, Babel, microtype y titlesec.
 
-**Archivos todavía en desarrollo:** `paper/`, `lean/` y `hand/` conservan ejemplos o instrucciones; no representan resultados concluidos de este proyecto.
+**Archivos todavía en desarrollo:** `paper/` y `hand/` conservan ejemplos o instrucciones. `lean/Proposition1.lean` contiene una prueba compilada, pero todavía no es la contribución integral del paper a AppliedModelingLib.
