@@ -59,6 +59,14 @@ assert sp.simplify(sp.diff(r_positive,kv_positive)
 assert sp.simplify(sp.diff(r_sym,lam)
                    -sp.diff(r_positive,kv_positive).subs(kv_positive,kv_sym)
                     *(kas-kbs)) == 0
+# Derivación manual: cuando la previsión cambia con p, se restan
+# las variaciones proporcionales de ambos costos.
+p = sp.symbols('p', real=True)
+kA_p, kV_p = sp.Function('kappa_A')(p), sp.Function('kappa_V')(p)
+R_p = sp.log((ms+sp.sqrt(2*fs*kA_p))/(ms+sp.sqrt(2*fs*kV_p)))
+pred_p = sp.sqrt(fs/2)*(sp.diff(kA_p,p)/(sp.sqrt(kA_p)*(ms+sp.sqrt(2*fs*kA_p)))
+                       -sp.diff(kV_p,p)/(sp.sqrt(kV_p)*(ms+sp.sqrt(2*fs*kV_p))))
+assert sp.simplify(sp.diff(R_p,p)-pred_p) == 0
 
 # Mínimo global, FOC y unicidad por la identidad exacta, en una malla amplia.
 rng = np.random.default_rng(261014)
@@ -89,6 +97,8 @@ for lam in (0,.5,1):
         assert np.all(rr[ratios>1]>0)
     else: assert np.allclose(rr,0)
 assert np.isclose(overrun(1,0),0)
+assert np.isclose(overrun(1.5,0),0.03677298776742071)
+assert np.isclose(overrun(.5,0),-0.05004726728490989)
 ls=np.linspace(0,1,101)
 assert np.all(np.diff(overrun(1.5,ls))<0)
 assert np.all(np.diff(overrun(.5,ls))>0)

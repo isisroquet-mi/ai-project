@@ -1,47 +1,32 @@
 # Fricciones de ejecución y desempeño de la inversión pública local
 
-**Autora:** Isis Milagros Roque Tinta · **Vía B:** modelo económico de tesis.
+**Autora:** Isis Milagros Roque Tinta. **Vía B:** modelo económico motivado por una propuesta anterior de tesis.
 
 ## Pregunta y modelo
 
-¿Cómo afectan las fricciones de implementación a la intensidad elegida por un gobierno local y cuándo se traducen en mayor duración y sobrecosto? Se considera un proyecto que se ejecutará, de alcance y calidad fijos. El municipio elige intensidad constante e > 0 para minimizar K(e;κ) = M + F/e + κe/2. La duración es T = 1/e.
+¿Cómo cambia la intensidad de ejecución si ejecutar un proyecto municipal resulta más difícil y cuándo aparece un sobrecosto con respecto a la previsión? El municipio ejecutará una obra de alcance fijo y elige una intensidad constante e > 0 para minimizar K(e;κ) = M + F/e + κe/2. La duración es T = 1/e.
 
-## Resultado principal con condiciones
+## Resultados y condiciones
 
-Con M ≥ 0, F > 0 y κ > 0, el óptimo interior único es e* = √(2F/κ), T* = √(κ/(2F)) y K* = M + √(2Fκ). Bajo la hipótesis estructural κp > 0 y manteniendo capacidad, M y F fijos, más pobreza reduce intensidad y aumenta duración y costo. No es un resultado empírico identificado.
+Con M ≥ 0, F > 0 y κ > 0, la intensidad óptima global única es e* = √(2F/κ); su duración es T* = √(κ/(2F)) y el costo óptimo es K* = M + √(2Fκ). Los signos respecto de pobreza y capacidad dependen de los supuestos κp > 0 y κC < 0, manteniendo M, F y la otra característica constantes; no son estimaciones causales.
 
-Con igual alcance, calidad, M y F en viabilidad y ejecución, R = log(KA/KV) es positivo si y sólo si κA > κV. La extensión κV = λκA + (1−λ)κ̄, λ ∈ [0,1], κ̄ > 0, distingue dificultad realizada y anticipación. Mejor anticipación acerca R a cero sin alterar la ejecución cuando κA está fija. λ es exógeno.
+Para el mismo proyecto, con alcance, calidad, M y F iguales antes y después, R = log(KA/KV) es positivo si y solo si la fricción realizada κA supera la prevista κV. La extensión κV = λκA + (1−λ)κ̄, con λ entre cero y uno, distingue dificultad de ejecución y anticipación. λ es exógeno y no modifica la decisión realizada cuando κA permanece fija.
 
-## Estado del proyecto
+## Estado para el trabajo final
 
 | Componente | Estado |
 | --- | --- |
-| Propuesta y diapositivas del tema | PDFs y fuentes LaTeX revisados |
-| Resultados analíticos | Proposiciones, condiciones, demostraciones y extensión expuestas en `slides/final.tex` |
-| Figuras y verificaciones | SymPy y 3000 casos numéricos comprobados con `code/verify.py`; figuras reproducibles |
-| Revisión de literatura | Diez PDF comparados; siete antecedentes centrales; seguimiento de contratos pendiente |
-| Prueba escrita y verificación simbólica | Derivación manuscrita de $R_p$ en `hand/`; otras pruebas escritas y SymPy en las diapositivas; falta trasladarlas al paper |
-| Diapositivas finales | `slides/final.tex` y `slides/final.pdf` (26 láminas) |
-| Lean y paper final | Mínimo global único de la Proposición 1 comprobado en Lean; resto de la formalización y paper final pendientes |
-| Actualización de la entrega | Archivos actualizados mediante rama y pull request |
+| Propuesta y diapositivas | Fuentes LaTeX y PDF conservados |
+| Artículo | Fuente LaTeX y PDF redactados, nueve páginas de cuerpo y bibliografía aparte |
+| Literatura | Ocho antecedentes citados, con estado de documento de trabajo señalado para Gurara et al. |
+| Pruebas | Dos proposiciones con demostraciones completas; extensión y derivada Rp explicadas |
+| Código | SymPy y 3000 configuraciones numéricas, tres figuras reproducibles mediante python code/verify.py |
+| Manuscrito | Existe derivación de Rp; faltan las restantes y el apéndice solicitado para la entrega final |
+| Lean | Mínimo global único compilado; faltan el resto de los resultados y el flujo final de AppliedModelingLib |
+| Registro de IA | Respuestas anteriores conservadas en prompts.md; apéndice de evaluación todavía pendiente |
 
-## Reproducir
+La autora indicó aplazar el apéndice del artículo mientras completa las derivaciones manuales. El texto describe explícitamente el alcance parcial de Lean y de la comprobación manuscrita.
 
-Desde la raíz del repositorio:
+## Reproducción
 
-```bash
-python -m pip install -r code/requirements.txt
-python code/verify.py
-cd proposal
-pdflatex -interaction=nonstopmode -halt-on-error proposal.tex
-pdflatex -interaction=nonstopmode -halt-on-error proposal.tex
-cd ../slides
-pdflatex -interaction=nonstopmode -halt-on-error topic.tex
-pdflatex -interaction=nonstopmode -halt-on-error topic.tex
-pdflatex -interaction=nonstopmode -halt-on-error final.tex
-pdflatex -interaction=nonstopmode -halt-on-error final.tex
-```
-
-Se incluyen las figuras PDF para compilar las diapositivas incluso antes de reproducirlas. Las fuentes requieren una distribución LaTeX con Beamer, Latin Modern, Babel, microtype y titlesec.
-
-**Archivos todavía en desarrollo:** `paper/` conserva un ejemplo. `hand/` ya incluye una derivación original de $R_p$ y necesita completarse con las demás pruebas. `lean/Proposition1.lean` contiene una prueba compilada, pero todavía no es la contribución integral del paper a AppliedModelingLib.
+Desde la raíz del repositorio: ejecutar python code/verify.py y compilar paper/paper.tex con latexmk -pdf desde la carpeta paper. Los PDF de propuesta y diapositivas se compilan desde sus carpetas. Las dependencias de Python están enumeradas en code/requirements.txt.
