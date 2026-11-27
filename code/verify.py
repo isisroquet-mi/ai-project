@@ -44,6 +44,19 @@ assert sp.simplify(sp.diff(t_sym,ks)
                    -1/(2*sp.sqrt(2*fs*ks))) == 0
 assert sp.simplify(sp.diff(k_sym,ks)
                    -sp.sqrt(fs/(2*ks))) == 0
+# Regla de la cadena para A4: κ(p,C)=exp(p-C) es únicamente un
+# testigo positivo cuyos signos parciales satisfacen el supuesto.
+pd, cd = sp.symbols('p_d C_d', real=True)
+kd = sp.exp(pd-cd)
+for expr, sign_p, sign_c in ((e_sym,-1,1),(t_sym,1,-1),(k_sym,1,-1)):
+    district = expr.subs(ks,kd)
+    assert sp.simplify(sp.diff(district,pd)
+                       -sp.diff(expr,ks).subs(ks,kd)*sp.diff(kd,pd)) == 0
+    assert sp.simplify(sp.diff(district,cd)
+                       -sp.diff(expr,ks).subs(ks,kd)*sp.diff(kd,cd)) == 0
+    at_reference = (pd,0,cd,0,fs,2,ms,10)
+    assert float(sp.diff(district,pd).subs(dict(zip(at_reference[::2],at_reference[1::2]))))*sign_p > 0
+    assert float(sp.diff(district,cd).subs(dict(zip(at_reference[::2],at_reference[1::2]))))*sign_c > 0
 kv_sym = lam*kas+(1-lam)*kbs
 kv_positive = sp.symbols('kappa_V', positive=True)
 v_positive = ms+sp.sqrt(2*fs*kv_positive)

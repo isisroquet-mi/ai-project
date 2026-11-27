@@ -1,0 +1,14 @@
+La fuente formalizada se fija en el compromiso \texttt{0f48940cb420e2da538a497120f80aadd1224acf}. Las dos pruebas Lean compilan sin \texttt{sorry} con Lean~4 y Mathlib en el entorno de \emph{AppliedModelingLib}. Cada fila distingue lo que dice el artículo de lo que efectivamente está demostrado en Lean:
+\begin{center}
+\small
+\begin{tabular}{p{.18\linewidth}p{.35\linewidth}p{.37\linewidth}}
+\toprule
+Resultado & Declaración y archivo Lean & Estado y alcance \\
+\midrule
+Proposición 1 & \texttt{unique\_global\_minimum}, \texttt{Proposition1.lean} & Mínimo global único demostrado. Las fórmulas de duración y costo, las derivadas y los signos distritales siguen abiertos en Lean. \\
+Proposición 2 & \texttt{three\_signs\_of\_cost\_variation}, \texttt{Proposition2.lean} & Tres equivalencias demostradas para $R>0$, $R=0$ y $R<0$, con $M\geq0$, $F>0$ y $\kappa^A,\kappa^V>0$. La diferencia de costos se verifica también en \texttt{cost\_difference\_signs}. \\
+Extensión & \texttt{actual\_minus\_forecast} y \texttt{exact\_anticipation\_zero}, \texttt{Proposition2.lean} & Demostradas la identidad $\kappa^A-\kappa^V(\lambda)=(1-\lambda)(\kappa^A-\bar\kappa)$ y $R(1)=0$. El signo de $R_\lambda$ y la convergencia para $\lambda\uparrow1$ permanecen abiertos en Lean. \\
+\bottomrule
+\end{tabular}
+\end{center}
+La comprobación \texttt{python3 scripts/paper\_contribution.py check Roque26Municipal --fast} terminó correctamente: construyó \texttt{PaperInterface.lean} y pasó \texttt{git diff --check}. Su salida está en \texttt{lean/check-fast.txt}; la carpeta generada y su estado parcial se conservan en \texttt{lean/}. Este chequeo rápido no completa la auditoría semántica integral entre texto y Lean, cuyos mapas de fuente y revisión humana aún están abiertos. La compilación formal verifica las declaraciones escritas en Lean bajo sus hipótesis; no demuestra empíricamente que $\kappa_p>0$ o $\kappa_C<0$ se cumplan en los municipios.

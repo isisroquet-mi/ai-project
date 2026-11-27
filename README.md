@@ -21,11 +21,11 @@ Para el mismo proyecto, con alcance, calidad, M y F iguales antes y después, R 
 | Literatura | Ocho antecedentes citados, con estado de documento de trabajo señalado para Gurara et al. |
 | Pruebas | Dos proposiciones con demostraciones completas; extensión y derivada Rp explicadas |
 | Código | SymPy y 3000 configuraciones numéricas, tres figuras reproducibles mediante python code/verify.py |
-| Manuscrito | Existe derivación de Rp; faltan las restantes y el apéndice solicitado para la entrega final |
-| Lean | Mínimo global único compilado; faltan el resto de los resultados y el flujo final de AppliedModelingLib |
-| Registro de IA | Respuestas anteriores conservadas en prompts.md; apéndice de evaluación todavía pendiente |
+| Manuscrito | Cinco hojas originales: Rp y cuatro hojas con las demás derivaciones; Apéndice A con imágenes, títulos, reglas y condiciones |
+| Lean | Véase Apéndice B y `lean/README.md` para el estado exacto por resultado y la comprobación disponible |
+| Registro de IA | Interacciones pertinentes en `prompts.md`; Apéndice C con afirmaciones, veredictos y verificaciones |
 
-La autora indicó aplazar el apéndice del artículo mientras completa las derivaciones manuales. El texto describe explícitamente el alcance parcial de Lean y de la comprobación manuscrita.
+El apéndice conserva las imágenes manuscritas sin modificarlas y aclara una notación ambigua en la condición de primer orden del costo óptimo. La formalización Lean debe leerse con el alcance exacto que se declara para cada resultado; la verificación matemática escrita no equivale por sí sola a una prueba Lean.
 
 ## Reproducción
 

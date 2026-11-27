@@ -1,30 +1,30 @@
-# Lean: primer resultado verificado
+<!-- BEGIN GENERATED PAPER FOLDER README -->
+# Fricciones de ejecución, intensidad óptima y condición de sobrecosto en proyectos municipales
 
-`Proposition1.lean` formaliza una parte de la Proposición 1 de
-`slides/final.tex`. Para el costo `K(e) = M + F/e + κe/2`, con `M ≥ 0`,
-`F > 0` y `κ > 0`, Lean comprueba que `q = √(2F/κ)` es positivo y, para
-**todo** `e > 0`, `K(q) ≤ K(e)` con igualdad si y solo si `e = q`.
+| Field | Value |
+|---|---|
+| Final status | Partially formalized |
+| Paper reference | Fricciones de ejecución, intensidad óptima y condición de sobrecosto en proyectos municipales by Isis Milagros Roque Tinta; Publication details not listed. |
+| Lines of Code | 327 |
 
-La prueba utiliza la identidad exacta
-`K(e) - K(q) = κ(e-q)²/(2e)`. La condición `M ≥ 0` figura en el enunciado
-para reflejar el modelo, aunque la minimización no la necesita porque `M`
-se cancela en la diferencia.
+## Key Links
 
-## Comprobación
+- Final validation report: not tracked in this folder.
+- Dependency DAG: not tracked in this folder.
+- Compact Lean interface: [PaperInterface.lean](PaperInterface.lean)
+- Source/status JSON: [status.json](status.json).
+- Additional documentation: [FORMALIZATION_NOTES.md](docs/FORMALIZATION_NOTES.md)
+<!-- END GENERATED PAPER FOLDER README -->
 
-Se compiló con Lean `v4.30.0-rc2` y la versión de Mathlib fijada por
-AppliedModelingLib:
+El mínimo global único de la Proposición 1 y las tres equivalencias de signo
+de la Proposición 2 tienen pruebas sin `sorry` en `Proposition1.lean` y
+`Proposition2.lean`. `PaperInterface.lean` presenta los dos enunciados y
+`ProofInterface.lean` conecta cada uno con su prueba. También se comprobaron
+la identidad de fricciones y `R(1)=0` de la extensión. Están abiertos en Lean
+las expresiones óptimas de duración y costo, las derivadas, los signos
+distritales, el signo de `R_λ` y su convergencia. La revisión semántica integral
+de los enunciados frente a la fuente fijada no se ha completado.
 
-```bash
-# En un clon de AppliedModelingLib con sus dependencias instaladas:
-cp /ruta/al/ai-project/lean/Proposition1.lean ./Proposition1.lean
-lake exe cache get Mathlib.Data.Real.Sqrt Mathlib.Tactic.FieldSimp \
-  Mathlib.Tactic.Ring Mathlib.Tactic.Positivity Mathlib.Tactic.Linarith
-lake env lean Proposition1.lean
-```
-
-El archivo no contiene `sorry` ni axiomas añadidos. El alcance verificado
-es el mínimo global único: faltan la duración y el costo óptimos, las
-comparativas estáticas, la Proposición 2 y la extensión. La carpeta aún
-no es la contribución completa que se generará con el flujo de
-AppliedModelingLib a partir del documento final.
+`check Roque26Municipal --fast` compiló la interfaz y pasó `git diff --check`;
+el resultado se conserva en `check-fast.txt`. Ese chequeo no equivale a la
+auditoría integral descrita en `status.json`.
