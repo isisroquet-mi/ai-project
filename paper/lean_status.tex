@@ -11,4 +11,4 @@ Extensión & \texttt{actual\_minus\_forecast} y \texttt{exact\_anticipation\_zer
 \bottomrule
 \end{tabular}
 \end{center}
-La compilación formal comprueba las declaraciones escritas en Lean bajo sus hipótesis; no verifica por sí misma que $\kappa_p>0$ o $\kappa_C<0$ sean hechos observados en los municipios. La derivación matemática y la comparación exacta con el texto son visibles en los archivos fuente del repositorio.
+La comprobación \texttt{python3 scripts/paper\_contribution.py check Roque26Municipal --fast} terminó correctamente: construyó \texttt{PaperInterface.lean} y pasó \texttt{git diff --check}. Su salida está en \texttt{lean/check-fast.txt}; la carpeta generada y su estado parcial se conservan en \texttt{lean/}. Este chequeo rápido no completa la auditoría semántica integral entre texto y Lean, cuyos mapas de fuente y revisión humana aún están abiertos. La compilación formal verifica las declaraciones escritas en Lean bajo sus hipótesis; no demuestra empíricamente que $\kappa_p>0$ o $\kappa_C<0$ se cumplan en los municipios.

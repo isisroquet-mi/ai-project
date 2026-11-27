@@ -1,18 +1,30 @@
-# Formalización del modelo municipal
+<!-- BEGIN GENERATED PAPER FOLDER README -->
+# Fricciones de ejecución, intensidad óptima y condición de sobrecosto en proyectos municipales
 
-La versión fuente del artículo se fija en `0f48940cb420e2da538a497120f80aadd1224acf`. La tabla completa y las condiciones matemáticas están en el apéndice B de `paper/paper.pdf`.
+| Field | Value |
+|---|---|
+| Final status | Partially formalized |
+| Paper reference | Fricciones de ejecución, intensidad óptima y condición de sobrecosto en proyectos municipales by Isis Milagros Roque Tinta; Publication details not listed. |
+| Lines of Code | 327 |
 
-| Resultado | Declaración | Estado |
-| --- | --- | --- |
-| Proposición 1: mínimo global único | `MunicipalProject.unique_global_minimum`, `Proposition1.lean` | Compilado sin `sorry`; aún faltan en Lean las expresiones de duración y costo óptimos, las derivadas y los signos distritales. |
-| Proposición 2: tres signos de `R` | `MunicipalProject.three_signs_of_cost_variation`, `Proposition2.lean` | Compilado sin `sorry` bajo `M ≥ 0`, `F > 0`, `κᴬ > 0` y `κⱽ > 0`. Incluye la diferencia de costos. |
-| Anticipación parcial | `MunicipalProject.actual_minus_forecast` y `MunicipalProject.exact_anticipation_zero`, `Proposition2.lean` | Compiladas la identidad de fricciones y `R(1)=0`; la derivada `R_λ` y la convergencia no están aún formalizadas. |
+## Key Links
 
-Para repetir las pruebas en el clon de AppliedModelingLib, con la versión de Lean y Mathlib fijadas allí:
+- Final validation report: not tracked in this folder.
+- Dependency DAG: not tracked in this folder.
+- Compact Lean interface: [PaperInterface.lean](PaperInterface.lean)
+- Source/status JSON: [status.json](status.json).
+- Additional documentation: [FORMALIZATION_NOTES.md](docs/FORMALIZATION_NOTES.md)
+<!-- END GENERATED PAPER FOLDER README -->
 
-```bash
-lake env lean /ruta/al/ai-project/lean/Proposition1.lean
-lake env lean /ruta/al/ai-project/lean/Proposition2.lean
-```
+El mínimo global único de la Proposición 1 y las tres equivalencias de signo
+de la Proposición 2 tienen pruebas sin `sorry` en `Proposition1.lean` y
+`Proposition2.lean`. `PaperInterface.lean` presenta los dos enunciados y
+`ProofInterface.lean` conecta cada uno con su prueba. También se comprobaron
+la identidad de fricciones y `R(1)=0` de la extensión. Están abiertos en Lean
+las expresiones óptimas de duración y costo, las derivadas, los signos
+distritales, el signo de `R_λ` y su convergencia. La revisión semántica integral
+de los enunciados frente a la fuente fijada no se ha completado.
 
-Esta compilación comprueba los enunciados Lean concretos, no valida empíricamente los supuestos distritales. La carpeta de contribución generada por AppliedModelingLib y el resultado de su validador específico se conservan junto a estos archivos; el estado de auditoría integral se distingue de la compilación de las dos pruebas.
+`check Roque26Municipal --fast` compiló la interfaz y pasó `git diff --check`;
+el resultado se conserva en `check-fast.txt`. Ese chequeo no equivale a la
+auditoría integral descrita en `status.json`.

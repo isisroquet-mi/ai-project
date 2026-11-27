@@ -1,0 +1,3 @@
++ lake build +Roque26Municipal.PaperInterface
+Build completed successfully (1915 jobs).
++ git diff --check -- papers/Roque26Municipal papers/Roque26Municipal.lean lakefile.toml ':(exclude)papers/Roque26Municipal/source/'

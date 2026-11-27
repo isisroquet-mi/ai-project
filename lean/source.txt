@@ -1,0 +1,1722 @@
+Fricciones de ejecución, intensidad óptima y condición de
+sobrecosto en proyectos municipales
+Isis Milagros Roque Tinta*
+25 de noviembre de 2026
+
+Resumen
+Se estudia cómo la dificultad de acelerar un proyecto municipal afecta su intensidad, duración y
+costo, y cuándo el costo realizado supera al previsto. El municipio ejecuta una obra de alcance
+fijo y elige una intensidad constante para minimizar el costo de permanencia y de aceleración.
+Si el gasto por perı́odo y la fricción son positivos, existe un único óptimo global: una mayor
+fricción reduce la intensidad y aumenta la duración y el costo. Para el mismo proyecto, con
+costo base y gasto periódico comunes a la previsión y la ejecución, hay sobrecosto si y solo
+si la fricción efectiva supera la anticipada. Los signos distritales dependen de supuestos sobre
+pobreza y capacidad municipal, sin interpretación causal estimada. SymPy y comprobaciones
+numéricas reproducen identidades y figuras. La formalización Lean disponible acredita solo el
+mı́nimo global único; los demás resultados aún no están formalizados.
+
+1
+
+Introducción
+
+Una municipalidad puede mantener abierta una obra durante más tiempo o asignar recursos para
+avanzar a mayor ritmo. La primera alternativa prolonga los gastos de administración y coordinación;
+la segunda exige organizar personal, insumos y supervisión de manera más intensa. Cuando esas
+tareas resultan más difı́ciles de lo previsto, el costo de una obra concluida puede diferir del presupuesto con el que se la comparaba. Distinguir entre la dificultad de ejecutar y la calidad de la
+previsión resulta esencial al analizar duración y variaciones de costos.
+La pregunta de investigación que motivó este ejercicio teórico se referı́a a la relación entre
+pobreza distrital, velocidad de ejecución y variación de costos de proyectos locales en el Perú. Este
+artı́culo, elaborado por la vı́a B del curso, formula una pregunta más acotada: ¿cómo cambia la
+intensidad elegida por un municipio cuando ejecutar se vuelve más difı́cil y cuándo se produce un
+sobrecosto con respecto a la previsión? El modelo se inspira en aquella propuesta anterior de tesis,
+que no constituye una prueba empı́rica de sus mecanismos y debe distinguirse de la lı́nea posterior
+de investigación de la autora sobre modalidades de ejecución.
+Se representa la dificultad mediante una fricción positiva, κ, que multiplica el costo de acelerar.
+Con un gasto positivo F por perı́odo, el municipio elige la intensidad e > 0 que minimiza K(e;
+p κ) =
+∗ =
+2F/κ,
+M + F/e + κe/2, donde
+M
+es
+un
+costo
+base
+común
+a
+las
+alternativas.
+El
+resultado
+es
+e
+p
+√
+∗
+∗
+una duración T = κ/(2F ) y un costo K = M + 2F κ. Si el presupuesto se calculó con una
+fricción prevista κV > 0 y, al iniciar la obra, la fricción efectiva es κA > 0, entonces el sobrecosto
+medido por R = log(K A /K V ) es positivo exactamente cuando κA > κV , siempre que se compare
+el mismo proyecto con los mismos M y F .
+*
+
+Universidad del Pacı́fico. Vı́a B: modelo teórico motivado por una propuesta anterior de tesis sobre pobreza
+distrital y ejecución de proyectos. Repositorio: https://github.com/isisroquet-mi/ai-project.
+
+1
+
+La contribución consiste en reunir una decisión continua de intensidad, condiciones transparentes de heterogeneidad distrital y una comparación precisa entre costo previsto y efectivo dentro
+de un mecanismo pequeño. Mohammadi Atashgah et al. (2022) ya optimizan el intercambio entre
+tiempo y costo bajo incertidumbre, de modo que este artı́culo no reclama la invención de ese intercambio. Frente a la evidencia peruana reciente de Julca-Varas et al. (2025), que identifica riesgos
+de retrasos y sobrecostos en obras de agua y saneamiento, aquı́ se obtiene una condición analı́tica
+para la variación de costo y se separa el costo de ejecutar de la fricción incorporada en la previsión.
+Asimismo, los hallazgos de Eliasson (2025) sobre la importancia de la etapa de estimación motivan
+especificar cuándo se fija el costo de referencia; el modelo no reproduce sus procesos de selección ni
+de revisión del diseño.
+Tras revisar los antecedentes directamente relacionados con capacidad pública, previsión y
+gestión de proyectos, se exponen las primitivas y el orden de decisiones, se demuestran dos proposiciones y se desarrolla una extensión de anticipación parcial. Las simulaciones comprueban identidades y signos en escenarios ilustrativos, antes de discutir los lı́mites de la correspondencia con
+medidas administrativas.
+
+2
+
+Literatura relacionada
+
+Loayza et al. (2014) estudian la capacidad de los municipios peruanos para ejecutar los presupuestos
+que se les asignan. Su análisis combina cuentas fiscales con caracterı́sticas municipales y distingue
+asignación presupuestaria, capacidad local, necesidades y economı́a polı́tica. En la sección de
+resultados encuentran que la capacidad y la escala presupuestaria importan para el gasto; también
+observan, condicional a sus controles, que municipalidades con mayor pobreza ejecutan una fracción
+mayor de su presupuesto asignado. La unidad de observación y el resultado de ese estudio no
+equivalen a la duración ni al costo final de una obra individual. Además, el signo positivo de la
+pobreza en la fracción gastada advierte que las necesidades pueden impulsar el gasto por un canal
+distinto del costo de acelerar. La hipótesis κp > 0 que se utilizará más adelante constituye, por ello,
+una restricción estructural para estudiar un mecanismo y no una conclusión empı́rica atribuible a
+Loayza et al. (2014).
+El intercambio entre tiempo y costo pertenece a una literatura amplia de gestión de proyectos.
+Mohammadi Atashgah et al. (2022), en un artı́culo publicado en Journal of Industrial and Systems Engineering, estudian una optimización bajo incertidumbre con simulación Monte Carlo, un
+algoritmo de búsqueda y una restricción financiera asociada al sobregiro. Su problema considera
+actividades y fuentes de incertidumbre que este artı́culo omite. Por su parte, Gurara et al. (2020)
+relacionan la ampliación de la inversión pública con costos unitarios de proyectos viales en paı́ses
+en desarrollo y encuentran una asociación no lineal compatible con lı́mites de absorción. Ese texto
+se cita como IMF Working Paper WP/20/48, es decir, como documento de trabajo y no como
+artı́culo de revista. Su fricción de capacidad se refiere a la escala de inversión y no identifica una
+derivada de la pobreza distrital sobre el costo de acelerar una obra municipal.
+Para distinguir el presupuesto del costo realizado, Flyvbjerg et al. (2002), en un artı́culo publicado en Journal of the American Planning Association cuya copia disponible también circula como
+prepublicación, documentan la subestimación de costos en 258 proyectos de transporte. Eliasson
+(2025) siguen estimaciones de infraestructura sueca desde la planificación hasta el cierre y muestran
+que el resultado de la comparación depende de la etapa en que se toma la estimación: buena parte
+del aumento ocurre antes de la decisión final de construir. Estos hallazgos impiden tratar cualquier
+monto inicial como si se basara en la misma información disponible al comienzo de la ejecución. En
+el modelo, K V es un costo calculado antes de conocer completamente κA ; su interpretación empı́rica
+
+2
+
+exige identificar el momento presupuestario concreto y mantenerlo fijo en las comparaciones.
+La evidencia más cercana en unidades de proyecto incluye a Issa et al. (2022), que estudian
+costo y duración previstos frente a realizados en 46 proyectos viales municipales de Palestina. Los
+autores documentan variaciones relacionadas con subestimación, retrasos de contratistas y órdenes
+que modifican el alcance, entre otros factores. En el Perú, Julca-Varas et al. (2025) analizan
+documentación de 318 proyectos de agua y saneamiento e identifican, entre los riesgos frecuentes,
+aprobaciones tardı́as de cambios, información de terreno inexacta, estimaciones de diseño imprecisas
+y disponibilidad de terrenos. Ariza Flores and Zavala Ascaño (2025) proponen estimaciones probabilı́sticas de costo y plazo para tres proyectos viales peruanos y muestran la relevancia práctica de
+la incertidumbre previa. Esos trabajos motivan separar información inicial y dificultades realizadas,
+aunque las modificaciones de alcance que describen quedan fuera de la comparación estricta del
+mismo proyecto adoptada aquı́.
+
+3
+
+Modelo
+
+3.1
+
+Primitivas, trabajo y costo
+
+El agente es un gobierno municipal que ejecutará una obra individual. El trabajo representa la
+cantidad de avance fı́sico necesario para completarla, no las horas trabajadas por un empleado ni
+una medida observada de gasto financiero. La unidad de ese trabajo se normaliza a Q = 1 y el
+proyecto comienza en t = 0. Si e es el avance por unidad de tiempo y permanece constante hasta la
+terminación, entonces Q = eT = 1 y la fecha de culminación coincide con la duración T (e) = 1/e.
+Supuesto A1 (Proyecto y decisión). El proyecto se realiza y mantiene alcance y calidad fijos. El
+municipio estudia cómo ejecutarlo, no si conviene iniciarlo, y minimiza su costo de implementación.
+Cualquier beneficio B es independiente de la intensidad e, de modo que maximizar B − K(e; κ) y
+minimizar K(e; κ) son problemas equivalentes.
+Supuesto A2 (Intensidad constante). En el inicio de la ejecución se elige una sola intensidad
+e ∈ (0, ∞), que se mantiene hasta terminar el proyecto. No hay pausas, revisión de e, trayectoria
+e(t) ni restricción superior de capacidad.
+Supuesto A3 (Costos y positividad). El costo base M ≥ 0 se paga por el proyecto; F > 0 es un
+gasto fijo por perı́odo mientras la obra está abierta; y κ > 0 mide la dificultad de acelerar. Durante
+una ejecución concreta estos parámetros son constantes. El costo de intensidad por perı́odo es
+κe2 /2.
+El municipio minimiza el costo acumulado hasta la culminación, sujeto al trabajo por completar:
+
+Z T (e) 
+κe2
+min K(e; κ) = M +
+F+
+dt,
+eT (e) = 1.
+(1)
+e>0
+2
+0
+La letra t es solamente la variable de integración; F , e y κ no cambian dentro del intervalo [0, 1/e].
+Al sustituir T (e) = 1/e e integrar se obtiene
+
+
+κe2 1
+F
+κe
+K(e; κ) = M + F +
+=M+ + .
+(2)
+2
+e
+e
+2
+Una mayor intensidad reduce los perı́odos durante los cuales se paga F , aunque encarece el esfuerzo
+de acelerar que se acumula hasta terminar. El término M desplaza el nivel de costo sin alterar la
+intensidad óptima.
+3
+
+3.2
+
+Heterogeneidad e información
+
+Supuesto A4 (Fricción local). En el dominio relevante, la fricción efectiva es κA = κ(p, C) > 0,
+diferenciable respecto de la incidencia de pobreza distrital predeterminada p y de una medida de
+capacidad municipal C, con κp := ∂κ/∂p > 0 y κC := ∂κ/∂C < 0. Las comparaciones respecto de
+p o C mantienen fijos M , F y la otra caracterı́stica distrital.
+El supuesto A4 recoge la posibilidad de que restricciones locales eleven la coordinación necesaria para avanzar a un ritmo dado, y de que personal y procedimientos municipales reduzcan ese
+esfuerzo. No se presupone que la pobreza sea la única determinante de κ ni se infiere el signo
+de κp directamente de la evidencia sobre ejecución presupuestaria. En particular, la asociación
+encontrada por Loayza et al. (2014) para la fracción de presupuesto gastada puede coexistir con
+un canal de fricción distinto o indicar que el supuesto requiere revisión empı́rica.
+Supuesto A5 (Previsión comparable). Antes de ejecutar, una estimación con información incompleta utiliza una fricción prevista κV > 0 y proyecta la intensidad y el costo mı́nimos de la misma
+obra. Al comenzar la ejecución se conoce κA > 0, se elige eA una sola vez y se realiza la obra.
+Entre la previsión y la realización se mantienen el alcance, la calidad, M y F ; no hay cambios de
+precios, revisión del presupuesto de referencia ni selección de obras que finalmente no se ejecutan.
+Esta sincronización distingue una proyección de una elección realizada. La estimación previa
+puede diferir de la dificultad efectiva porque ciertos requerimientos de terreno, coordinación o
+abastecimiento se conocen mejor al comenzar la obra; el modelo no precisa una distribución de
+información ni presupone que el municipio desconozca por completo su propia capacidad. La
+proyección eV es el ritmo que habrı́a minimizado el costo bajo κV , no una intensidad vinculante
+elegida con anticipación. El momento del presupuesto es anterior al inicio; al comenzar se selecciona
+eA y durante la ejecución no se vuelve a optimizar.
+
+4
+
+Resultados y demostraciones
+
+4.1
+
+Intensidad, duración y costo
+
+Proposición 1 (Óptimo único y signos de la fricción). Bajo A1–A3, para todo M ≥ 0, F > 0 y
+κ > 0, el problema (1) tiene un único minimizador global en e > 0, y sus resultados son
+r
+r
+√
+2F
+κ
+∗
+∗
+e (κ) =
+,
+T (κ) =
+,
+K ∗ (κ) = M + 2F κ.
+(3)
+κ
+2F
+Con M y F fijos, e∗κ < 0, Tκ∗ > 0 y Kκ∗ > 0. Si también se cumple A4, una mayor p reduce e∗ y
+aumenta T ∗ y K ∗ ; una mayor C produce los signos opuestos, manteniendo fijos los parámetros y
+la otra caracterı́stica local.
+Demostración. La derivada del costo (2) respecto de la intensidad es Ke = −F/e2 + κ/2, por lo
+2
+que la condición de primer orden Kp
+e = 0 equivale a e = 2F/κ. Como F y κ son positivos y e > 0,
+el único candidato interior es q = 2F/κ > 0. La segunda derivada Kee = 2F/e3 > 0 identifica
+un mı́nimo local; para establecer también globalidad y unicidad se usa la identidad F = κq 2 /2. En
+efecto, para todo e > 0,
+F
+κe F
+κq
++
+− −
+e
+2
+q
+2
+2
+κq
+κe
+κ
+=
++
+− κq = (e − q)2 ≥ 0.
+2e
+2
+2e
+
+K(e; κ) − K(q; κ) =
+
+4
+
+(4)
+
+El último término se anula exactamente en e = q porque κ/(2e) > 0; por tanto, q alcanza el mı́nimo
+y es el único minimizador global. Al sustituir q en T (e) = 1/e y (2) se obtiene (3). La diferenciación
+directa, válida para F, κ > 0, da
+r
+√
+1
+2F
+F
+∗
+∗
+∗
+Tκ = √
+eκ = − 3/2 < 0,
+> 0,
+Kκ =
+> 0.
+(5)
+2κ
+2κ
+2 2F κ
+Bajo A4, la regla de la cadena establece para x ∈ {p, C} que e∗x = e∗κ κx , Tx∗ = Tκ∗ κx y Kx∗ = Kκ∗ κx .
+Los signos se siguen de (5), κp > 0 y κC < 0.
+La comparación respecto de la pobreza designa una variación hipotética de p que, por A4, eleva
+κ sin alterar C, M ni F . No se afirma que dos distritos observados difieran solamente en pobreza,
+ni que κp haya sido estimado. La consecuencia teórica sobre K ∗ se refiere al nivel de costo óptimo,
+que todavı́a no informa si el costo supera un presupuesto particular.
+
+4.2
+
+Condición exacta de sobrecosto
+
+Bajo A5, aplı́quese la solución (3) a las fricciones de las dos etapas. El monto previsto y el costo
+realizado del mismo proyecto son
+r
+r
+√
+√
+2F
+1
+2F
+1
+V
+V
+A
+A
+A
+V;
+eV =
+,
+T
+=
+,
+K
+=
+M
++
+,
+T
+=
+,
+K
+=
+M
++
+2F
+κ
+e
+=
+2F κA .
+κV
+eV
+κA
+eA
+(6)
+A
+V
+Se define la variación logarı́tmica R := log(K /K ). Ambas cantidades son estrictamente positivas
+aunque M pueda ser cero, pues F , κA y κV son positivos. Ası́, R está definido tanto para sobrecosto
+como para igualdad y costo menor que el previsto.
+Proposición 2 (Tres signos de la variación de costos). Bajo A1–A3 y A5, para el mismo proyecto
+con M ≥ 0, F > 0 y κA , κV > 0,
+sgn(R) = sgn(K A − K V ) = sgn(κA − κV ).
+
+(7)
+
+En consecuencia, R > 0 si y solo si κA > κV ; R = 0 si y solo si κA = κV ; y R < 0 si y solo si
+κA < κV .
+Demostración. Por (6), la diferencia de costos cancela el término base M y satisface
+√
+√ 
+√
+K A − K V = 2F κA − κV .
+
+(8)
+
+√
+Como F > 0, el factor 2F es positivo; como las fricciones son positivas, la raı́z cuadrada es
+estrictamente creciente. Por tanto, K A − K V y κA − κV tienen el mismo signo, incluido el caso
+de igualdad. Finalmente, K A , K V > 0 permite escribir R = log(K A /K V ), y el logaritmo es
+estrictamente creciente con log 1 = 0. De ahı́ que R sea positivo, cero o negativo exactamente
+cuando K A /K V sea mayor, igual o menor que uno, lo que equivale a comparar K A con K V . Esto
+prueba (7) y los tres casos.
+La condición no dice que un proyecto de fricción elevada siempre presente sobrecosto: una obra
+difı́cil puede ajustarse a un presupuesto igualmente alto si la dificultad fue anticipada. Tampoco
+permite reemplazar κA > κV por κp > 0: la primera compara niveles entre etapas y la segunda
+expresa una derivada hipotética respecto de una caracterı́stica distrital.
+
+5
+
+4.3
+
+Anticipación parcial y variación respecto de la pobreza
+
+Para ilustrar qué cambia cuando una previsión incorpora mejor la dificultad local, considérese una
+fricción genérica κ̄ > 0 y el ı́ndice exógeno λ ∈ [0, 1] definido por
+κV (λ) = λκA + (1 − λ)κ̄.
+
+(9)
+
+En λ = 0 la previsión utiliza únicamente κ̄; para 0 < λ < 1 incorpora parte de la fricción efectiva;
+y en λ = 1 la anticipa completamente. El ı́ndice no es una decisión del municipio ni se deriva
+de expectativas racionales. Por positividad de κA y κ̄, la combinación (9) es positiva en todo el
+intervalo.
+Con κA , M y F fijos, la intensidad realizada eA y el costo realizado K A no varı́an con λ,
+mientras que la derivada del indicador es
+p
+∂R
+F/(2κV (λ)) A
+=−
+(κ − κ̄).
+(10)
+∂λ
+K V (λ)
+A
+V
+La expresión resulta de derivar
+p R = log K −log K (λ): la primera parte es constante y la derivada
+V
+V
+V
+de K respecto de κ vale F/(2κ ). El factor anterior a κA − κ̄ es estrictamente negativo. Si
+κA > κ̄, una mayor anticipación disminuye un R positivo para λ < 1; si κA < κ̄, eleva un R
+negativo. Cuando κA = κ̄, R = 0 para cualquier λ, y en los otros casos R(1) = 0. El resultado
+describe una previsión que se acerca al costo realizado manteniendo fija la dificultad de ejecutar,
+no una obra que se abarata por aumentar λ.
+La derivación manuscrita disponible de la autora examina otra distinción: si la previsión también
+varı́a con la pobreza, no basta con suponer κA
+p > 0 para concluir que Rp > 0. Si ambas funciones
+κA (p) y κV (p) son positivas y diferenciables, con M y F fijos, la regla de la cadena conduce a
+#
+r "
+κVp
+κA
+(K A )p (K V )p
+F
+p
+√
+Rp =
+−√
+−
+=
+.
+(11)
+KA
+KV
+2
+κA K A
+κV K V
+
+Si κVp = 0 y κA
+p > 0, el signo es positivo; cuando la previsión cambia con p, el signo depende de ambos
+cambios proporcionales. Esta observación evita confundir una comparativa del costo realizado con
+una del cociente entre costos. La derivación manuscrita original de Rp y las restantes derivaciones,
+acompañadas de sus condiciones y una guı́a de lectura, se reproducen en el Apéndice A.
+
+5
+
+Simulaciones y verificaciones
+
+El único punto de entrada computacional es python code/verify.py. El script utiliza SymPy para
+sustituir el candidato en la condición de primer orden, comprobar la segunda derivada, simplificar la
+identidad (4), verificar las derivadas (5) y (10), y comprobar la diferencia (8). También comprueba
+la regla de la cadena distrital en el ejemplo ilustrativo κ(p, C) = exp(p − C), cuyos signos satisfacen
+A4 sin que ello pruebe empı́ricamente dicho supuesto. Con NumPy examina 3000 configuraciones
+positivas de F y κ y no negativas de M , compara el costo del candidato con el de otras intensidades
+y revisa los tres signos de R ante fricciones menores, iguales o mayores que las previstas. Las
+diferencias finitas comprueban las derivadas en puntos ilustrativos. Las condiciones se expresan
+como aserciones que detienen el programa si fallan.
+Las figuras emplean unidades arbitrarias, M = 10, F = 2 y κ̄ = 1; no son estimaciones para el
+Perú. La Figura 1 muestra K(e; κ) − M para dos fricciones, con el mı́nimo marcado en cada curva.
+
+6
+
+6
+
+Costo adicional K(e) − M
+
+κ=1
+κ=2
+5
+
+4
+
+3
+
+2
+
+1
+
+2
+
+3
+Intensidad e
+
+4
+
+5
+
+Figure 1: Costo adicional frente a intensidad para κ = 1 y κ = 2, con M = 10 y F = 2. Los puntos
+indican el mı́nimo de cada curva; fuente: code/verify.py.
+La forma en U procede de la permanencia costosa a intensidades pequeñas y del esfuerzo costoso a
+intensidades grandes, y el mı́nimo
+de la fricción mayor se encuentra a una intensidad menor.
+p
+Para la Figura 2, e0 = 2F/κ̄ y T0 = 1/e0 son referencias hipotéticas calculadas con κ̄, no con
+la previsión κV de un proyecto observado. Las razones representadas obedecen a e∗ /e0 = (κ/κ̄)−1/2
+y T ∗ /T0 = (κ/κ̄)1/2 . Al pasar de la fricción de referencia a la mitad de su valor, la intensidad
+relativa asciende a 1,414 y la duración cae a 0,707; con una fricción 50% mayor, las razones son
+0,816 y 1,225. El valor uno en el centro indica que cada magnitud coincide con su propia referencia,
+no que fricción, intensidad y duración compartan unidades.
+
+Razón frente a la referencia
+
+1.5
+Intensidad e * /e0
+
+1.4
+
+Duración T * /T0
+
+1.3
+1.2
+1.1
+1.0
+0.9
+0.8
+0.7
+0.50
+
+0.75
+
+1.00
+Fricción relativa κ/κ̄
+
+1.25
+
+1.50
+
+Figure 2: Intensidad y duración relativas cuando varı́a la fricción de un mismo proyecto. La
+referencia κ̄ = 1 es ilustrativa y no equivale a κV ; fuente: code/verify.py.
+La Figura 3 compara fricción realizada y previsión según (9). Si κA = 1,5 y λ = 0, K V = 12 y
+K A ≃ 12,449, de modo que R ≃ 0,0368 > 0; con κA = 0,5, K A ≃ 11,414 y R ≃ −0,0500. Cuando
+λ = 1, la previsión coincide con la realización y R = 0 para cualquier κA > 0. Los valores son
+7
+
+diferencias logarı́tmicas sin interpretación como puntos porcentuales estimados.
+0.04
+Costo superior al previsto
+
+R = log(K A/K V)
+
+0.02
+
+0.00
+
+−0.02
+
+−0.04
+
+λ=0
+λ = 0.5
+λ=1
+
+Costo inferior al previsto
+
+0.6
+
+0.8
+
+1.0
+Fricción relativa κ A/κ̄
+
+1.2
+
+1.4
+
+Figure 3: Variación logarı́tmica de costos al cambiar fricción realizada y anticipación, con M = 10,
+F = 2 y κ̄ = 1. Cada curva mantiene fijo λ ∈ {0, 0,5, 1}; fuente: code/verify.py.
+Las comprobaciones detectan errores algebraicos o de implementación en los casos programados,
+pero la prueba de las proposiciones es la demostración anterior. Las simulaciones tampoco identifican κ, λ o sus derivadas para distritos peruanos, ni verifican que el alcance de las obras observadas
+permanezca fijo.
+
+6
+
+Análisis, verificación crı́tica y limitaciones
+
+La restricción principal del resultado distrital es A4. La literatura describe problemas de capacidad,
+preparación y entorno local, pero no determina que κp sea positiva o que κC sea negativa en
+cada municipio. Además, una municipalidad más pobre puede enfrentar necesidades más urgentes,
+transferencias distintas u otras prioridades, de modo que una asociación positiva entre pobreza y
+ejecución presupuestaria, como la documentada por Loayza et al. (2014), no confirma por sı́ sola
+el canal especı́fico de intensidad. La Proposición 1 entrega signos condicionales del modelo, sin
+estimación, identificación causal ni validez automática fuera de su dominio.
+La Proposición 2 utiliza A5 para comparar el mismo M y F antes y después. Una modificación
+de alcance, precios, estándares de calidad o contratos podrı́a elevar el costo aunque la fricción de
+aceleración no cambiara; tales fenómenos aparecen en Issa et al. (2022) y Julca-Varas et al. (2025),
+pero no están modelados por (7). La fecha de referencia también importa: comparar el costo final
+con la primera estimación puede dar un indicador distinto de compararlo con el monto aprobado
+cerca del inicio, según ilustra Eliasson (2025). La precisión presupuestaria y el costo de ejecutar
+son objetos relacionados, aunque conceptualmente distintos.
+La correspondencia con indicadores administrativos requiere cautela. El avance financiero dividido entre años desde el primer devengado puede aproximar eA = 1/T A solo cuando los desembolsos
+guardan proporción estable con el avance fı́sico y las fechas financieras reflejan el comienzo y el
+fin reales. Asimismo, el costo actualizado frente al monto viable no es necesariamente K A /K V :
+puede incluir adiciones de alcance, revisiones de diseño o registros incompletos. Como el modelo
+condiciona a culminación, excluir proyectos aún en ejecución puede sesgar la muestra y exige tratar
+la censura de duración. Se han dejado fuera la decisión de iniciar, una restricción presupuestaria
+
+8
+
+explı́cita, una trayectoria variable de esfuerzo y la opción de terminar antes por el valor de los
+beneficios.
+La derivación manual de Rp permitió evaluar una afirmación demasiado general que podrı́a
+V
+surgir de la asistencia de IA: κA
+p > 0 no garantiza Rp > 0 si κ también varı́a con p, tal como
+muestra (11). El Apéndice A incorpora el manuscrito de esa comprobación y las derivaciones
+restantes. En la transcripción explicativa se identifica un signo ambiguo en la hoja del costo
+óptimo y se escribe expresamente la condición correcta Ke (q; κ) = 0. El registro de solicitudes
+y respuestas pertinentes se conserva en prompts.md; el Apéndice C presenta el veredicto de sus
+aportes principales. El código simbólico y numérico respalda las identidades implementadas, pero
+no sustituye la evaluación crı́tica de supuestos ni la prueba escrita.
+p
+La formalización actual de lean/Proposition1.lean declara la positividad de q = 2F/κ y
+que, bajo M ≥ 0, F > 0 y κ > 0, q es el único mı́nimo global de K(e) en e > 0. La prueba
+se apoya en (4) y, según la comprobación conservada en lean/README.md, compiló sin sorry. Su
+alcance corresponde solamente a una parte de la Proposición 1: no formaliza aún T ∗ , K ∗ , los signos
+distritales, la Proposición 2 ni la anticipación parcial. Tampoco se ha ejecutado el flujo final de
+AppliedModelingLib sobre un compromiso fijado de este artı́culo; deberá repetirse después de cerrar
+el documento y declararse el estado exacto de cada resultado, sin adjudicar a Lean afirmaciones
+que todavı́a no verifica.
+
+7
+
+Conclusión
+
+En un proyecto municipal de trabajo y calidad fijos, la decisión óptima equilibra el gasto por
+mantener la obra abierta con el costo de acelerar su ejecución. Cuando el gasto por perı́odo y
+la fricción son positivos, una mayor dificultad reduce la intensidad, prolonga la obra y eleva su
+costo mı́nimo; sus implicaciones para pobreza y capacidad se mantienen condicionadas a los signos
+supuestos de la fricción local. Si la previsión y la ejecución comparten alcance, costo base y gasto
+periódico, la variación del costo es positiva exactamente cuando la fricción realizada supera a la prevista. Esta distinción permite discutir por separado dificultades de implementación y anticipación
+presupuestaria. Las derivaciones manuscritas se reproducen en el apéndice; su aplicación a obras
+peruanas aún exige establecer medidas comparables, examinar la heterogeneidad real y distinguir
+los resultados formalizados en Lean de los que siguen abiertos.
+
+Referencias
+Victor Andre Ariza Flores and Gerber Zavala Ascaño. Quantitative risk analysis framework for
+cost and time estimation in road infrastructure projects. Infrastructures, 10(6):139, 2025. doi:
+10.3390/infrastructures10060139.
+Jonas Eliasson. Cost overruns of infrastructure projects: Distributions, causes and remedies. Transportation Research Part A: Policy and Practice, 198:104532, 2025. doi: 10.1016/j.tra.2025.
+104532.
+Bent Flyvbjerg, Mette Skamris Holm, and Søren Buhl. Underestimating costs in public works
+projects: Error or lie? Journal of the American Planning Association, 68(3):279–295, 2002. doi:
+10.1080/01944360208976273.
+Daniel Gurara, Kangni Kpodar, Andrea F. Presbitero, and Dawit Tessema. On the capacity to
+absorb public investment: How much is too much? IMF Working Paper WP/20/48, International
+9
+
+Monetary Fund, 2020. URL https://www.imf.org/en/Publications/WP/Issues/2020/02/28/
+On-the-Capacity-to-Absorb-Public-Investment-How-Much-is-Too-Much-49229.
+Amjad Issa, Reema Bdair, and Sameer Abu-Eisheh. Assessment of compliance to planned cost and
+time for implemented municipal roads projects in palestine. Ain Shams Engineering Journal, 13
+(2):101578, 2022. doi: 10.1016/j.asej.2021.09.005.
+Carlos Julca-Varas, Tatiana Garcı́a-Segura, Cristina Torres-Machi, and Laura Montalbán-Domingo.
+Primary risks for delays and cost overruns in the construction of drinking water supply and
+sanitation projects in peru. Journal of Management in Engineering, 41(3):04025008, 2025. doi:
+10.1061/JMENEA.MEENG-6496.
+Norman V. Loayza, Jamele Rigolini, and Oscar Calvo-González. More than you can handle: Decentralization and spending ability of peruvian municipalities. Economics & Politics, 26(1):56–78,
+2014. doi: 10.1111/ecpo.12026.
+Kayvan Mohammadi Atashgah, Rouzbeh Ghousi, Armin Monir Abbasi, and Abbasali
+Tayefi Nasrabadi.
+Developing a model for time-cost trade-off optimization problem
+considering overdraft issue in uncertain environments.
+Journal of Industrial and Systems Engineering, 14(3):259–279, 2022.
+URL https://www.jise.ir/article_154961_
+2e9576261fd03c085ad26ecae80b573.pdf.
+
+10
+
+A
+
+Derivaciones manuscritas y guı́a de lectura
+
+Las cinco hojas manuscritas siguientes reúnen la derivación original de Rp y los pasos restantes del
+modelo. Las cuatro últimas se conservaron en hand/02-derivaciones-manuscritas.pdf, eliminando únicamente la portada vacı́a del archivo recibido. Los tı́tulos y la lectura de cada hoja se
+añaden aquı́ en texto compuesto para relacionar el trabajo a mano con las ecuaciones del artı́culo;
+no sustituyen ni modifican los trazos originales.
+
+A.1
+
+Trabajo, costo, candidato y unicidad global
+
+La primera hoja parte del avance fı́sico normalizado Q = eT = 1 para hallar T (e) = 1/e, y
+después integra un gasto constante por perı́odo en el intervalo [0,p
+1/e]. La condición de primer
+orden mantiene M , F y κ fijos y selecciona la raı́z positiva q = 2F/κ. La segunda derivada
+2F/e3 > 0 justifica un mı́nimo local; para demostrar que ese punto existe como mı́nimo global
+único se sustituye F = κq 2 /2 y se completa el cuadrado:
+K(e; κ) − K(q; κ) =
+
+κ
+(e − q)2 ≥ 0,
+2e
+
+con igualdad únicamente si e = q.
+
+El resultado utiliza e > 0, F > 0 y κ > 0; M ≥ 0 es un supuesto económico pero se cancela en esta
+comparación.
+
+Duracion :
+Q= 1
+
+eT
+
+=
+
+eso
+
+,
+
+1
+
+Q
+
+,
+
+eT
+
+=
+
+TCe)
+
+>
+-
+
+1
+
+=
+
+e
+
+Costo
+M20
+
+acumulado
+#30
+
+,
+
+k(eix)
+
+=
+
+=
+
+=
+
+M
+
+o
+
+>
+
+f()( me)dt
++
+
++
+
+1" (F (ez)dt
+j(F +2 ]
+
+m +
+
++
+
+M +
+
++
+
+m +
+
+=
+
+condicion
+
+k
+
+,
+
++
+
+:
+
+E
+
+1
+
++
+
+primer orderi :
+
+de
+
+kleik)
+
+min
+
+min
+
+=
+
+e > 0
+
+es o
+
+ke(ljk)
+
+=
+
+Keleik)
+
+-
+
+=
+
++
+
+Fe
+
+Fe2 +
+
+0
+
+elo
+
+Segunda
+
+(M
+
+-
+
+E
+
+q
+
+=
+
+1)
+
++
+
+e
+
+=
+
+0
+
+=
+
+*
+
+derivada :
+
+Kee(e x)
+,
+
+Globalidad
+
+y
+
+= (
+
+-
+
+1) =
+
+Fe +
+
+Cesa
+
+unicidad :
+
+q
+
+=
+
+Kleik)
+
+-
+
+-
+
+F = xq
+2
+
+k(qik)
+
+= + -E qke-k
+
+-
+
+k(e k)
+,
+
+=
+
+2
+
+=
+
+(q + 2
+
+=
+
+(e-q)0(e2
+
+k(q , k)
+
+11
+
+=-
+
+(e-q)
+
+=
+
+0
+
+e
+
+=
+
+q
+
+A.2
+
+Costo óptimo y signos distritales
+
+La segunda hoja evalúa T (q) y K(q; κ). En el manuscrito, el signo situado entre Ke (q; κ) y 0
+puede leerse como una desigualdad; la igualdad que corresponde a la condición de primer orden, y
+la utilizada en las transformaciones siguientes, es Ke (q; κ) = 0. Al aplicar después la regla de la
+potencia a e∗ , T ∗ y K ∗ se obtienen signos (−, +, +) respecto de κ. La regla de la cadena transforma
+esos signos en los correspondientes a p y C, condicionados a κp > 0 y κC < 0 y a mantener fijos M ,
+F y la otra caracterı́stica distrital.
+
+Duracion
+
+optimal
+
+y costo
+
++* (k)
+
+=
+
+Kelgir)
+
+T(q)
+
+=
+
+e
+
+*
+
+(k)
+
+T
+
+*
+
+F
+
+0 E=
+
+=
+
+m +
+
+=
+
+de la friccion :
+
+respecto
+
+Derivadas
+
+=
+
+EFk 1/2
+
+a
+
+-
+
+=
+
+(k)
+
+=
+
+*
+
+k (k)
+
+M +
+
+=
+
+x p"z
+
+=
+signos distritales :
+k
+
+k(pc)
+
+=
+
+4p , c
+
+x
+
+*
+
+e
+
+=
+
+p
+
+T
+
+-
+
+-
+
+:
+
+0 kp
+
+>
+
+ex
+
+=
+
+E
+
+T
+
+=
+
+Tky
+
+A
+
+kp
+
+=
+
+Acco
+
+> 0
+
+ex
+
+>
+
+0
+
+F
+k
+
+e
+
+=
+
+*
+
+p
+
+*
+
+=
+
+-
+
+Tbc
+
+>
+
+0
+
+0
+
+21312
+
+T
+k
+
+*
+
+=
+
+12
+
+k
+
+*
+
+x
+
+=
+
+Kkx
+
+A.3
+
+Tres signos del costo y anticipación parcial
+
+La tercera hoja aplica la solución óptima dos veces, con κV en la proyección presupuestaria y κA al
+iniciar la ejecución. La cancelación de M , el crecimiento estricto de la raı́z cuadrada y la monotonı́a
+de log para costos positivos establecen los tres casos de la Proposición 2. Para la extensión, se deriva
+primero κV (λ) y luego K V (λ); la regla de la cadena para el logaritmo da (10). La comparación
+requiere el mismo proyecto, alcance, calidad, M y F en ambas etapas.
+
+Proposicion
+
+2
+
+:
+
+LEGr AY
+
+KOxo
+
+FLO
+
+MEO
+
+,
+
+eM
+R
+
+k
+
+*
+-
+
+log()
+
+=
+
+k
+
+(M +
+
+=
+
+Syn
+
+(k
+
+*
+-
+
+VF)
+
+-
+
+(M +
+
+v
+
+(VEA-viY
+
+If
+
+=
+
+k"(
+
+(kA
+
+syn
+
+=
+
+b)
+
+-
+
+RLOK
+R
+
+=
+
+0
+
+k
+
++
+1
+
+=
+
+*
+=
+
+kz+
+
+kA
+
+=
+
+k
+
+RA
+Sgn(R)
+Extension
+
+=
+
+Sgh(kt
+
+-
+
+kV)
+
+KAxo
+
+ExO
+
+Xkt
+
+(x)
+Derivada :
+
+=
+
+:
+
+X 10 , 17
+
+kY(x)
+
+(gn(kA -kV)
+
+=
+
++ (1
+
+k
+
+=
+
+A
+
+k(x)
+
+=
+
+R(x)
+
+=
+
+-
+
+x)E
+
+> 0
+
+-
+
+m +
+
+xFk
+(x)
+
+logkE-10gk"(x)
+
+=
+dk
+
+=
+
+dkd
+dkV
+
+↓X
+
+Rx
+
+=
+
+FF2x(X)
+
+=
+-
+
+(k
+
+kV(x)
+
+sgn(Ry)
+
+=
+
+-
+
+Sgn(k
+
+*
+
+-
+
+E)
+
+13
+
+-
+
+E)
+
+A.4
+
+Convergencia de la previsión y razones de las figuras
+
+La cuarta hoja usa la identidad κA −κV (λ) = (1−λ)(κA −κ̄). Para 0 ≤ λ < 1, la Proposición 2 fija el
+signo de R; en λ = 1, la coincidencia de las fricciones implica R = 0, mientras eA y K A permanecen
+constantes. Las razones de intensidad y duración dividen cada solución entre su propia referencia
+hipotética e0 o T0 , calculada con κ̄. Esa referencia de la simulación no es la fricción presupuestada
+κV .
+
+kA
+
+-
+
+kV(x)
+
+0 xX(1
+
+x = 1
+
+x)(kA E)
+syn(kA E)
+syn(r)
+
+(1
+
+=
+
+>
+-
+
+>
+-
+
+-
+
+-
+
+=
+
+-
+
+kV()
+
+=
+
+NA E -> k(x)
+=
+
+det
+
+=
+
+>O
+
+0
+
+=
+
+kA
+k
+
+*
+
+-
+
+kV(1)
+
+lo
+
+kA
+
+k(1)
+
+-
+
+=
+
+0
+
+R(x) = 0
+
+d
+
+-T
+o
+-
+
+ex(k)
+
+=
+
+=
+
+1/2
+
+=
+= -)
+
+=
+
+( ,)
+
+=
+
+(1 , 414
+
+,
+
+0,
+
+707)
+
+=
+= 15 = )
+
+14
+
+=
+
+(0 816 ,
+,
+
+A.5
+
+Revisión independiente de la derivada respecto de la pobreza
+
+La hoja anterior de la autora diferencia ambos logaritmos en R(p) mediante la regla de la cadena,
+de donde Rp = (K A )p /K A − (K V )p /K V . Su veredicto es que κA
+p > 0 por sı́ sola no determina el
+signo de Rp cuando κVp también puede variar. Si κVp = 0, la positividad de κA
+p sı́ da Rp > 0. Ası́ se
+examina una conclusión demasiado fuerte que podrı́a atribuirse a la asistencia de IA.
+
+perivacion Manual
+R(p)
+
+R(p)
+
+Rp
+
+log
+
+=
+
+( kp) k
+
+kp (p)
+k
+
++
+
+kV(p)
+
+(p)
+
+F
+
+=
+2
+
+=
+
+KCPMCF
+
+CFP]
+
+M +
+
+(2Fk(p))"
+
+2P
+
+= (FR(p)) 12
+-
+
+(IF
+
+=
+
+-
+
+Kpt
+
+2kA
+M +
+
+kp(p)
+
+=
+
+P)
++
+
+I
+
+2p
+
+*
+
+=
+
+M
+
+Glogk(p)
+
+-
+
+2P
+
+Rp
+
+=
+
+*
+
+Clogkt(p)
+
+=
+
+(p)
+
+logk (p)-logk(p)
+
+=
+
+=
+
+*
+
+J2FKA
+
+-
+
+M + V2FKV
+
+)/
+# > O
+
+k> 0
+
+kt > 0
+
+M= 0
+
+>
+
+VA(M + vikv) > 0
+
+Rp > O
+
+umt)
+KpA
+
+=
+
+Rp
+
+k >
+Rp
+
+=>
+
+(M + v
+kv)
+
+> o
+
+= A (MKpt=
+kA)
++
+
+M =0
+
+F) 0
+
+=>
+
+kp
+Kpt
+
+=
+
+0
+
+kp
+
+> o
+
+*
+
+A
+
+>0
+
+Kp > 0
+>
+
+> 0
+
+por si
+
+k
+
+sola
+
+no
+
+Rp > 0
+determina el signo de Rp
+
+15
+
+Kpf
+
+> o
+
+>
+
+0
+
+B
+
+Correspondencia con la formalización Lean
+
+La formalización disponible se corresponde con la versión del artı́culo indicada en lean/README.md.
+Una compilación anterior del archivo Proposition1.lean verificó el mı́nimo global único; la ejecución del flujo de contribución y las declaraciones de los demás resultados están pendientes de
+comprobación. La tabla no atribuye a Lean los signos distritales ni el resultado sobre sobrecostos.
+Resultado del artı́culo
+
+Declaración y archivo Lean
+
+Proposición 1
+
+MunicipalProject.
+unique global minimum
+lean/Proposition1.lean
+—
+
+Proposición 2
+
+Extensión de antici- —
+pación
+
+16
+
+Estado y alcance
+en
+
+Mı́nimo global único compilado anteriormente; duración, costo y signos
+abiertos.
+Abierta: falta formalizar la equivalencia de los tres signos.
+Abierta: falta formalizar Rλ y el caso
+R(1) = 0.
+
+C
+
+Evaluación de la colaboración con IA
+
+El archivo prompts.md conserva las consultas y respuestas pertinentes en bruto. La tabla separa
+lo sugerido durante esa colaboración de lo que se admite como resultado de este artı́culo; el criterio
+de aceptación es la coincidencia con las hipótesis escritas y la comprobación independiente, no la
+fluidez de una respuesta.
+Contribución
+nada
+
+exami- Veredicto y razón
+
+Óptimo de intensidad
+y costo
+Signos distritales
+
+Sobrecosto
+siempre
+que la fricción sea
+elevada
+κA
+p > 0 bastarı́a para
+Rp > 0
+Mejor
+anticipación
+abarata la ejecución
+
+Verificación
+
+Aceptada con F, κ > 0 y e > 0. Identidad cuadrática (4) en el artı́culo
+La condición de primer orden sola y manuscrito; sustituciones en SymPy y
+no demuestra globalidad.
+comparación en 3000 casos.
+Condicionales, no estimaciones: Regla de la cadena y manuscrito; conlos signos de κp y κC son traste de su interpretación con los resulsupuestos estructurales.
+tados de Loayza et al. (2014).
+Rechazada. El nivel absoluto de Resta de costos y tres equivalencias de la
+κA no fija la diferencia respecto Proposición 2; casos positivos, negativos
+de la previsión.
+e iguales en code/verify.py.
+Rechazada si κVp puede variar. Hoja manuscrita propia y ecuación (11);
+Ambas derivadas de costos entran comprobación simbólica del código.
+en Rp .
+Rechazada bajo la extensión prop- Derivada (10), lı́mite R(1) = 0,
+uesta: λ mueve el costo previsto, manuscrito y valores del script.
+no K A con κA fija.
+
+Esta evaluación se limita a las identidades y condiciones de este modelo. La revisión de fuentes
+literarias y su correspondencia con obras municipales requieren juicio sobre unidades de análisis y
+sobre el momento en que se fija cada presupuesto; ninguna comprobación algebraica decide esas
+cuestiones por sı́ sola.
+
+17
+
+
