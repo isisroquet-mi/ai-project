@@ -1,13 +1,14 @@
-La formalización disponible se corresponde con la versión del artículo indicada en \texttt{lean/README.md}. Una compilación anterior del archivo \texttt{Proposition1.lean} verificó el mínimo global único; la ejecución del flujo de contribución y las declaraciones de los demás resultados están pendientes de comprobación. La tabla no atribuye a Lean los signos distritales ni el resultado sobre sobrecostos.
+La fuente formalizada se fija en el compromiso \texttt{0f48940cb420e2da538a497120f80aadd1224acf}. Las dos pruebas Lean compilan sin \texttt{sorry} con Lean~4 y Mathlib en el entorno de \emph{AppliedModelingLib}. Cada fila distingue lo que dice el artículo de lo que efectivamente está demostrado en Lean:
 \begin{center}
 \small
-\begin{tabular}{p{.21\linewidth}p{.34\linewidth}p{.34\linewidth}}
+\begin{tabular}{p{.18\linewidth}p{.35\linewidth}p{.37\linewidth}}
 \toprule
-Resultado del artículo & Declaración y archivo Lean & Estado y alcance \\
+Resultado & Declaración y archivo Lean & Estado y alcance \\
 \midrule
-Proposición 1 & \texttt{MunicipalProject.}\newline\texttt{unique\_global\_minimum} en \texttt{lean/Proposition1.lean} & Mínimo global único compilado anteriormente; duración, costo y signos abiertos. \\
-Proposición 2 & --- & Abierta: falta formalizar la equivalencia de los tres signos. \\
-Extensión de anticipación & --- & Abierta: falta formalizar $R_\lambda$ y el caso $R(1)=0$. \\
+Proposición 1 & \texttt{unique\_global\_minimum}, \texttt{Proposition1.lean} & Mínimo global único demostrado. Las fórmulas de duración y costo, las derivadas y los signos distritales siguen abiertos en Lean. \\
+Proposición 2 & \texttt{three\_signs\_of\_cost\_variation}, \texttt{Proposition2.lean} & Tres equivalencias demostradas para $R>0$, $R=0$ y $R<0$, con $M\geq0$, $F>0$ y $\kappa^A,\kappa^V>0$. La diferencia de costos se verifica también en \texttt{cost\_difference\_signs}. \\
+Extensión & \texttt{actual\_minus\_forecast} y \texttt{exact\_anticipation\_zero}, \texttt{Proposition2.lean} & Demostradas la identidad $\kappa^A-\kappa^V(\lambda)=(1-\lambda)(\kappa^A-\bar\kappa)$ y $R(1)=0$. El signo de $R_\lambda$ y la convergencia para $\lambda\uparrow1$ permanecen abiertos en Lean. \\
 \bottomrule
 \end{tabular}
 \end{center}
+La compilación formal comprueba las declaraciones escritas en Lean bajo sus hipótesis; no verifica por sí misma que $\kappa_p>0$ o $\kappa_C<0$ sean hechos observados en los municipios. La derivación matemática y la comparación exacta con el texto son visibles en los archivos fuente del repositorio.
